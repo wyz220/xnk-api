@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.brand.ShoeSizeMapper">
+  <resultMap id="BaseResultMap" type="com.xnk.service.api.model.ShoeSize">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="size" jdbcType="DOUBLE" property="size" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="shoe_size_type" jdbcType="BIGINT" property="shoeSizeType" />
+    <result column="shoe_size_type_name" jdbcType="VARCHAR" property="shoeSizeTypeName" />
+    <result column="brand_id" jdbcType="BIGINT" property="brandId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, size, num, type, shoe_size_type, shoe_size_type_name, brand_id, create_time
+  </sql>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shoe_size
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+   <!-- 模糊查询 -->
+	<sql id="allAndLike">
+		<trim suffix="" suffixOverrides=",">
+				<if test="id != null" > and id = #{id, jdbcType=BIGINT} </if>
+				<if test="brandId != null" > and brand_id = #{brandId, jdbcType=BIGINT} </if>
+				<if test="type != null and type != ''" > and type = #{type, jdbcType=TINYINT} </if>
+				<if test="shoeSizeType != null and shoeSizeType != ''" > and shoe_size_type = #{shoeSizeType, jdbcType=BIGINT}  </if>
+				<if test="shoeSizeTypeName != null and shoeSizeTypeName != ''" > and shoe_size_type_name like concat('%',#{shoeSizeTypeName, jdbcType=VARCHAR},'%') </if>
+		</trim>
+	</sql>
+	
+	<!-- 总数 -->
+	<select id="count" resultType="java.lang.Integer">
+		select count(id) from shoe_size
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+    <select id="page" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from shoe_size 
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+		limit #{page.start},#{page.pageSize}
+	</select>
+  	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM shoe_size
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+	</select>
+	
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from shoe_size
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xnk.service.api.model.ShoeSize">
+    insert into shoe_size (id, size, num, 
+      type, shoe_size_type, shoe_size_type_name, 
+      brand_id, create_time)
+    values (#{id,jdbcType=BIGINT}, #{size,jdbcType=DOUBLE}, #{num,jdbcType=INTEGER}, 
+      #{type,jdbcType=TINYINT}, #{shoeSizeType,jdbcType=BIGINT}, #{shoeSizeTypeName,jdbcType=VARCHAR}, 
+      #{brandId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <update id="update" parameterType="com.xnk.service.api.model.ShoeSize">
+    update shoe_size
+    <set>
+      <if test="size != null">
+        size = #{size,jdbcType=DOUBLE},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="shoeSizeType != null">
+        shoe_size_type = #{shoeSizeType,jdbcType=BIGINT},
+      </if>
+      <if test="shoeSizeTypeName != null">
+        shoe_size_type_name = #{shoeSizeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

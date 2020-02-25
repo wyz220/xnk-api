@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.evaluation.EvaluationWriteRecomTotalMapper">
+  <resultMap id="BaseResultMap" type="com.xnk.service.api.model.EvaluationWriteRecomTotal">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="evaluation_id" jdbcType="BIGINT" property="evaluationId" />
+    <result column="seq" jdbcType="BIGINT" property="seq" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="percent" jdbcType="DOUBLE" property="percent" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, evaluation_id, seq, num,name, percent, create_time, update_time
+  </sql>
+  <!-- 模糊查询 -->
+	<sql id="allAndLike">
+		<trim suffix="" suffixOverrides=",">
+		<if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="evaluationId != null">
+        and evaluation_id = #{evaluationId,jdbcType=BIGINT}
+      </if>
+      <if test="seq != null">
+        and seq = #{seq,jdbcType=BIGINT}
+      </if>
+      <if test="num != null">
+        and num = #{num,jdbcType=INTEGER}
+      </if>
+      <if test="percent != null">
+        and percent = #{percent,jdbcType=DOUBLE}
+      </if>
+      
+		</trim>
+	</sql>
+	
+  <!-- 总数 -->
+	<select id="count" resultType="java.lang.Integer">
+		select count(id) from evaluation_write_recom_total
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+    <select id="page" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from evaluation_write_recom_total 
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+		limit #{page.start},#{page.pageSize}
+	</select>
+  	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM evaluation_write_recom_total
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+	</select>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from evaluation_write_recom_total
+    <where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from evaluation_write_recom_total
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xnk.service.api.model.EvaluationWriteRecomTotal">
+    insert into evaluation_write_recom_total (id, evaluation_id, seq,name, 
+      num, percent, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{evaluationId,jdbcType=BIGINT}, #{seq,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{num,jdbcType=INTEGER}, #{percent,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <!-- 批量插入 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into evaluation_write_recom_total (
+		id, evaluation_id, seq,name, 
+      num, percent, create_time, 
+      update_time
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			<trim suffix="" suffixOverrides=",">
+				#{item.id,jdbcType=BIGINT}, 
+				#{item.evaluationId,jdbcType=BIGINT}, 
+				#{item.seq,jdbcType=BIGINT}, 
+				#{item.name,jdbcType=VARCHAR}, 
+      		    #{item.num,jdbcType=INTEGER}, 
+      		    #{item.percent,jdbcType=DOUBLE}, 
+      		    #{item.createTime,jdbcType=TIMESTAMP}, 
+      		    #{item.updateTime,jdbcType=TIMESTAMP}
+			</trim>
+			)
+		</foreach>
+
+	</insert>
+  <update id="update" parameterType="com.xnk.service.api.model.EvaluationWriteRecomTotal">
+    update evaluation_write_recom_total
+    <set>
+      <if test="evaluationId != null">
+        evaluation_id = #{evaluationId,jdbcType=BIGINT},
+      </if>
+      <if test="seq != null">
+        seq = #{seq,jdbcType=BIGINT},
+      </if>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="percent != null">
+        percent = #{percent,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

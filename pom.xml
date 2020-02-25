@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+	</parent>
+	
+	<groupId>com.xnk.service</groupId>
+	<artifactId>lwh-xnk-master</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	
+	<packaging>pom</packaging>
+	<modules>
+		<module>lwh-xnk-api</module>
+		<module>lwh-xnk-provider</module>
+	</modules>
+	<name>lwh-xnk-master</name>
+	<url></url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- jdk版本 -->
+		<java.version>1.8</java.version>
+		<mybatis.version>3.2.8</mybatis.version>
+		<!-- 源文件编码格式 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- jdk编译源码版本 -->
+		<jdk.compile.source.version>1.8</jdk.compile.source.version>
+		<!-- jdk编译目标版本 -->
+		<jdk.compile.target.version>1.8</jdk.compile.target.version>
+		<!-- junit版本 -->
+		<junit.version>4.12</junit.version>
+		<!-- log4j版本 -->
+		<log4j.version>1.2.17</log4j.version>
+		<!-- MySQL -->
+		<mysql.version>5.1.40</mysql.version>
+		<oracle.driver.version>10.2.0.4.0</oracle.driver.version>
+		<druid.version>1.0.18</druid.version>
+		<!-- dubbo版本 -->
+		<dubbo.version>2.5.3</dubbo.version>
+		<!-- zookeeper版本 -->
+		<zookeeper.version>3.4.6</zookeeper.version>
+		<!-- zkclient版本 -->
+		<zkclient.version>0.1</zkclient.version>
+		<!-- poi版本 -->
+		<poi.version>3.9</poi.version>
+		<!-- xmlbeans版本 -->
+		<xmlbeans.version>2.3.0</xmlbeans.version>
+		<!-- commons-lang3版本 -->
+		<commons-lang3.version>3.4</commons-lang3.version>
+		<!-- commons-io版本 -->
+		<commons-io.version>2.4</commons-io.version>
+		<!-- commons-fileupload版本 -->
+		<commons-fileupload.version>1.3.1</commons-fileupload.version>
+		<!-- guava版本 -->
+		<guava.version>17.0</guava.version>
+		<!-- guava版本 -->
+		<ant.version>1.8.2</ant.version>
+		<!-- dozer版本 -->
+		<dozer.version>5.5.1</dozer.version>
+		<!-- 分页插件版本 -->
+		<mybatis.paginator.version>4.1.6</mybatis.paginator.version>
+		<mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
+		<shiro.version>1.4.0</shiro.version><!-- 1.4.1 1.2.3 -->
+		<springfox-swagger.version>2.2.2</springfox-swagger.version>
+		<xstream.version>1.4.7</xstream.version>
+		<fastjson.version>1.1.40</fastjson.version>
+		<json-lib.version>2.2.3</json-lib.version>
+		<jackson.version>2.9.8</jackson.version>
+		<spring-data-redis.version>1.7.3.RELEASE</spring-data-redis.version>
+		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+		<springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
+		
+	</properties>
+
+	<dependencyManagement>
+		
+	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- spring boot test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.4</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-lang3</artifactId>
+	<version>3.7</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+<dependency>
+    <groupId>commons-codec</groupId>
+    <artifactId>commons-codec</artifactId>
+    <version>1.9</version>
+</dependency>
+
+         <!--Swagger-ui配置-->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${springfox-swagger2.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${springfox-swagger-ui.version}</version>
+    </dependency>
+         
+         <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+		
+         <!-- mybatis 包 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.4</version>
+		</dependency>
+		
+         <!--mybatis spring 插件 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+	<!--FastDFS -->
+	<dependency>
+		<groupId>org.csource</groupId>
+		<artifactId>fastdfs-client-java</artifactId>
+		<version>5.0.4</version>
+	</dependency>
+
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<!-- 资源文件拷贝插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>ico</nonFilteredFileExtension>
+						<nonFilteredFileExtension>eot</nonFilteredFileExtension>
+						<nonFilteredFileExtension>svg</nonFilteredFileExtension>
+						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+						<nonFilteredFileExtension>woff</nonFilteredFileExtension>
+						<nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
+			</plugin>
+			<!-- java编译插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

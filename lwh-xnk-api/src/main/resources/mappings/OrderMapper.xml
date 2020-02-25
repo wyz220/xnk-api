@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.evaluation.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.xnk.service.api.model.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="evaluation_id" jdbcType="BIGINT" property="evaluationId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="child_type" jdbcType="INTEGER" property="childType" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="actual_pay_amount" jdbcType="DOUBLE" property="actualPayAmount" />
+    <result column="discount_amount" jdbcType="DOUBLE" property="discountAmount" />
+    <result column="pay_type" jdbcType="INTEGER" property="payType" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="mcht_order_no" jdbcType="VARCHAR" property="mchtOrderNo" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="pay_notice_info" jdbcType="VARCHAR" property="payNoticeInfo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, evaluation_id, nick_name, type, child_type, source, order_no, status, 
+    amount, actual_pay_amount, discount_amount, pay_type, pay_time, mcht_order_no, remark, 
+    pay_notice_info, create_time, update_time
+  </sql>
+	<!-- 模糊查询 -->
+	<sql id="allAndLike">
+		<trim suffix="" suffixOverrides=",">
+		    <if test="id != null">
+				and id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId,jdbcType=BIGINT}
+			</if>
+			<if test="evaluationId != null">
+				and evaluation_id = #{evaluationId,jdbcType=BIGINT}
+			</if>
+			<if test="nickName != null">
+				and nick_name = #{nickName,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null">
+				and type = #{type,jdbcType=INTEGER}
+			</if>
+			<if test="childType != null">
+				and child_type = #{childType,jdbcType=INTEGER}
+			</if>
+			<if test="source != null">
+				and source = #{source,jdbcType=INTEGER}
+			</if>
+			<if test="orderNo != null">
+				and order_no = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				and status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="amount != null">
+				and amount = #{amount,jdbcType=DOUBLE}
+			</if>
+			<if test="actualPayAmount != null">
+				and actual_pay_amount = #{actualPayAmount,jdbcType=DOUBLE}
+			</if>
+			<if test="discountAmount != null">
+				and discount_amount = #{discountAmount,jdbcType=DOUBLE}
+			</if>
+			<if test="payType != null">
+				and pay_type = #{payType,jdbcType=INTEGER}
+			</if>
+			<if test="payTime != null">
+				and pay_time = #{payTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="mchtOrderNo != null">
+				and mcht_order_no = #{mchtOrderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null">
+				and remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="payNoticeInfo != null">
+				and pay_notice_info = #{payNoticeInfo,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</sql>
+	
+  <!-- 总数 -->
+	<select id="count" resultType="java.lang.Integer">
+		select count(id) from xnk_order
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+    <select id="page" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from xnk_order 
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+		limit #{page.start},#{page.pageSize}
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM xnk_order
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+	</select>
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xnk_order
+    <where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.xnk.service.api.model.Order">
+    insert into xnk_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="evaluationId != null">
+        evaluation_id,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="childType != null">
+        child_type,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="actualPayAmount != null">
+        actual_pay_amount,
+      </if>
+      <if test="discountAmount != null">
+        discount_amount,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="mchtOrderNo != null">
+        mcht_order_no,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="payNoticeInfo != null">
+        pay_notice_info,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="evaluationId != null">
+        #{evaluationId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="childType != null">
+        #{childType,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="actualPayAmount != null">
+        #{actualPayAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="discountAmount != null">
+        #{discountAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mchtOrderNo != null">
+        #{mchtOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="payNoticeInfo != null">
+        #{payNoticeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.xnk.service.api.model.Order">
+    update xnk_order
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="evaluationId != null">
+        evaluation_id = #{evaluationId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="childType != null">
+        child_type = #{childType,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="actualPayAmount != null">
+        actual_pay_amount = #{actualPayAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="discountAmount != null">
+        discount_amount = #{discountAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mchtOrderNo != null">
+        mcht_order_no = #{mchtOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="payNoticeInfo != null">
+        pay_notice_info = #{payNoticeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

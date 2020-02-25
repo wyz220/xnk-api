@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xnk.service.dao.user.WeiXinPayMapper">
+    <resultMap id="BaseResultMap" type="com.xnk.service.api.model.WeiXinPay">
+		<result property="id" column="ID" jdbcType="NUMERIC"/>
+		<result property="payId" column="PAY_ID" jdbcType="NUMERIC"/>
+		<result property="nonceStr" column="NONCE_STR" jdbcType="VARCHAR"/>
+		<result property="body" column="BODY" jdbcType="VARCHAR"/>
+		<result property="detail" column="DETAIL" jdbcType="VARCHAR"/>
+		<result property="outTradeNo" column="OUT_TRADE_NO" jdbcType="VARCHAR"/>
+		<result property="totalFee" column="TOTAL_FEE" jdbcType="VARCHAR"/>
+		<result property="spbillCreateIp" column="SPBILL_CREATE_IP" jdbcType="VARCHAR"/>
+		<result property="timeStart" column="TIME_START" jdbcType="NUMERIC"/>
+		<result property="timeExpire" column="TIME_EXPIRE" jdbcType="NUMERIC"/>
+		<result property="notifyUrl" column="NOTIFY_URL" jdbcType="VARCHAR"/>
+		<result property="status" column="STATUS" jdbcType="NUMERIC"/>
+		<result property="prepayId" column="PREPAY_ID" jdbcType="VARCHAR"/>
+		<result property="returnCode" column="RETURN_CODE" jdbcType="VARCHAR"/>
+		<result property="returnMsg" column="RETURN_MSG" jdbcType="VARCHAR"/>
+		<result property="openid" column="OPENID" jdbcType="VARCHAR"/>
+		<result property="bankType" column="BANK_TYPE" jdbcType="VARCHAR"/>
+		<result property="transactionId" column="TRANSACTION_ID" jdbcType="VARCHAR"/>
+		<result property="timeEnd" column="TIME_END" jdbcType="VARCHAR"/>
+		<result property="outRefundNo" column="OUT_REFUND_NO" jdbcType="VARCHAR"/>
+		<result property="refundFee" column="REFUND_FEE" jdbcType="VARCHAR"/>
+		<result property="refundId" column="REFUND_ID" jdbcType="VARCHAR"/>
+		<result property="createDate" column="CREATE_DATE" jdbcType="TIMESTAMP"/>
+		<result property="modifiedDate" column="MODIFIED_DATE" jdbcType="TIMESTAMP"/>
+		<result property="delFlag" column="DEL_FLAG" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		ID as id,
+		PAY_ID as payId,
+		NONCE_STR as nonceStr,
+		BODY as body,
+		DETAIL as detail,
+		OUT_TRADE_NO as outTradeNo,
+		TOTAL_FEE as totalFee,
+		SPBILL_CREATE_IP as spbillCreateIp,
+		TIME_START as timeStart,
+		TIME_EXPIRE as timeExpire,
+		NOTIFY_URL as notifyUrl,
+		STATUS as status,
+		PREPAY_ID as prepayId,
+		RETURN_CODE as returnCode,
+		RETURN_MSG as returnMsg,
+		OPENID as openid,
+		BANK_TYPE as bankType,
+		TRANSACTION_ID as transactionId,
+		TIME_END as timeEnd,
+		OUT_REFUND_NO as outRefundNo,
+		REFUND_FEE as refundFee,
+		REFUND_ID as refundId,
+		CREATE_DATE as createDate,
+		MODIFIED_DATE as modifiedDate,
+		DEL_FLAG as delFlag
+    </sql>
+
+    <insert id="insert" parameterType="com.xnk.service.api.model.WeiXinPay" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO weixin_pay(
+         <trim suffixOverrides=",">
+				 	<if test="id != null">
+						ID,
+					</if>
+				 	<if test="payId != null">
+						PAY_ID,
+					</if>
+				 	<if test="nonceStr != null">
+						NONCE_STR,
+					</if>
+				 	<if test="body != null">
+						BODY,
+					</if>
+				 	<if test="detail != null">
+						DETAIL,
+					</if>
+				 	<if test="outTradeNo != null">
+						OUT_TRADE_NO,
+					</if>
+				 	<if test="totalFee != null">
+						TOTAL_FEE,
+					</if>
+				 	<if test="spbillCreateIp != null">
+						SPBILL_CREATE_IP,
+					</if>
+				 	<if test="timeStart != null">
+						TIME_START,
+					</if>
+				 	<if test="timeExpire != null">
+						TIME_EXPIRE,
+					</if>
+				 	<if test="notifyUrl != null">
+						NOTIFY_URL,
+					</if>
+				 	<if test="status != null">
+						STATUS,
+					</if>
+				 	<if test="prepayId != null">
+						PREPAY_ID,
+					</if>
+				 	<if test="returnCode != null">
+						RETURN_CODE,
+					</if>
+				 	<if test="returnMsg != null">
+						RETURN_MSG,
+					</if>
+				 	<if test="openid != null">
+						OPENID,
+					</if>
+				 	<if test="bankType != null">
+						BANK_TYPE,
+					</if>
+				 	<if test="transactionId != null">
+						TRANSACTION_ID,
+					</if>
+				 	<if test="timeEnd != null">
+						TIME_END,
+					</if>
+				 	<if test="outRefundNo != null">
+						OUT_REFUND_NO,
+					</if>
+				 	<if test="refundFee != null">
+						REFUND_FEE,
+					</if>
+				 	<if test="refundId != null">
+						REFUND_ID,
+					</if>
+				 	<if test="createDate != null">
+						CREATE_DATE,
+					</if>
+				 	<if test="modifiedDate != null">
+						MODIFIED_DATE,
+					</if>
+				 	<if test="delFlag != null">
+						DEL_FLAG,
+					</if>
+		 </trim>
+    	) VALUES (
+	    <trim suffixOverrides=",">
+					<if test="payId != null">
+						#{payId,jdbcType=NUMERIC},
+					</if>
+					<if test="nonceStr != null">
+						#{nonceStr,jdbcType=VARCHAR},
+					</if>
+					<if test="body != null">
+						#{body,jdbcType=VARCHAR},
+					</if>
+					<if test="detail != null">
+						#{detail,jdbcType=VARCHAR},
+					</if>
+					<if test="outTradeNo != null">
+						#{outTradeNo,jdbcType=VARCHAR},
+					</if>
+					<if test="totalFee != null">
+						#{totalFee,jdbcType=VARCHAR},
+					</if>
+					<if test="spbillCreateIp != null">
+						#{spbillCreateIp,jdbcType=VARCHAR},
+					</if>
+					<if test="timeStart != null">
+						#{timeStart,jdbcType=NUMERIC},
+					</if>
+					<if test="timeExpire != null">
+						#{timeExpire,jdbcType=NUMERIC},
+					</if>
+					<if test="notifyUrl != null">
+						#{notifyUrl,jdbcType=VARCHAR},
+					</if>
+					<if test="status != null">
+						#{status,jdbcType=NUMERIC},
+					</if>
+					<if test="prepayId != null">
+						#{prepayId,jdbcType=VARCHAR},
+					</if>
+					<if test="returnCode != null">
+						#{returnCode,jdbcType=VARCHAR},
+					</if>
+					<if test="returnMsg != null">
+						#{returnMsg,jdbcType=VARCHAR},
+					</if>
+					<if test="openid != null">
+						#{openid,jdbcType=VARCHAR},
+					</if>
+					<if test="bankType != null">
+						#{bankType,jdbcType=VARCHAR},
+					</if>
+					<if test="transactionId != null">
+						#{transactionId,jdbcType=VARCHAR},
+					</if>
+					<if test="timeEnd != null">
+						#{timeEnd,jdbcType=VARCHAR},
+					</if>
+					<if test="outRefundNo != null">
+						#{outRefundNo,jdbcType=VARCHAR},
+					</if>
+					<if test="refundFee != null">
+						#{refundFee,jdbcType=VARCHAR},
+					</if>
+					<if test="refundId != null">
+						#{refundId,jdbcType=VARCHAR},
+					</if>
+					<if test="createDate != null">
+						#{createDate,jdbcType=TIMESTAMP},
+					</if>
+					<if test="modifiedDate != null">
+						#{modifiedDate,jdbcType=TIMESTAMP},
+					</if>
+					<if test="delFlag != null">
+						#{delFlag,jdbcType=NUMERIC},
+					</if>
+		</trim>
+     )
+    </insert>
+
+	<update id="update" parameterType="com.xnk.service.api.model.WeiXinPay" >
+        UPDATE weixin_pay 
+        <set>
+	        <if test="id != null">
+				ID = #{id,jdbcType=NUMERIC},
+			</if>
+	        <if test="payId != null">
+				PAY_ID = #{payId,jdbcType=NUMERIC},
+			</if>
+	        <if test="nonceStr != null">
+				NONCE_STR = #{nonceStr,jdbcType=VARCHAR},
+			</if>
+	        <if test="body != null">
+				BODY = #{body,jdbcType=VARCHAR},
+			</if>
+	        <if test="detail != null">
+				DETAIL = #{detail,jdbcType=VARCHAR},
+			</if>
+	        <if test="outTradeNo != null">
+				OUT_TRADE_NO = #{outTradeNo,jdbcType=VARCHAR},
+			</if>
+	        <if test="totalFee != null">
+				TOTAL_FEE = #{totalFee,jdbcType=VARCHAR},
+			</if>
+	        <if test="spbillCreateIp != null">
+				SPBILL_CREATE_IP = #{spbillCreateIp,jdbcType=VARCHAR},
+			</if>
+	        <if test="timeStart != null">
+				TIME_START = #{timeStart,jdbcType=NUMERIC},
+			</if>
+	        <if test="timeExpire != null">
+				TIME_EXPIRE = #{timeExpire,jdbcType=NUMERIC},
+			</if>
+	        <if test="notifyUrl != null">
+				NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+			</if>
+	        <if test="status != null">
+				STATUS = #{status,jdbcType=NUMERIC},
+			</if>
+	        <if test="prepayId != null">
+				PREPAY_ID = #{prepayId,jdbcType=VARCHAR},
+			</if>
+	        <if test="returnCode != null">
+				RETURN_CODE = #{returnCode,jdbcType=VARCHAR},
+			</if>
+	        <if test="returnMsg != null">
+				RETURN_MSG = #{returnMsg,jdbcType=VARCHAR},
+			</if>
+	        <if test="openid != null">
+				OPENID = #{openid,jdbcType=VARCHAR},
+			</if>
+	        <if test="bankType != null">
+				BANK_TYPE = #{bankType,jdbcType=VARCHAR},
+			</if>
+	        <if test="transactionId != null">
+				TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR},
+			</if>
+	        <if test="timeEnd != null">
+				TIME_END = #{timeEnd,jdbcType=VARCHAR},
+			</if>
+	        <if test="outRefundNo != null">
+				OUT_REFUND_NO = #{outRefundNo,jdbcType=VARCHAR},
+			</if>
+	        <if test="refundFee != null">
+				REFUND_FEE = #{refundFee,jdbcType=VARCHAR},
+			</if>
+	        <if test="refundId != null">
+				REFUND_ID = #{refundId,jdbcType=VARCHAR},
+			</if>
+	        <if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+	        <if test="modifiedDate != null">
+				MODIFIED_DATE = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+	        <if test="delFlag != null">
+				DEL_FLAG = #{delFlag,jdbcType=NUMERIC},
+			</if>
+		</set>	        
+        WHERE ID = #{id,jdbcType=NUMERIC}
+	</update>
+	
+	<select id="get" resultType="com.xnk.service.api.model.WeiXinPay">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM weixin_pay 
+		WHERE ID = #{id, jdbcType=NUMERIC}
+		AND DEL_FLAG = 0
+	</select>
+
+	<select id="findList" resultType="com.xnk.service.api.model.WeiXinPay">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM weixin_pay 
+		WHERE DEL_FLAG = 0
+	        <if test="id != null">
+	        AND ID = #{id,jdbcType=NUMERIC}
+			</if>
+	        <if test="payId != null">
+	        AND PAY_ID = #{payId,jdbcType=NUMERIC}
+			</if>
+	        <if test="nonceStr != null">
+	        AND NONCE_STR = #{nonceStr,jdbcType=VARCHAR}
+			</if>
+	        <if test="body != null">
+	        AND BODY = #{body,jdbcType=VARCHAR}
+			</if>
+	        <if test="detail != null">
+	        AND DETAIL = #{detail,jdbcType=VARCHAR}
+			</if>
+	        <if test="outTradeNo != null">
+	        AND OUT_TRADE_NO = #{outTradeNo,jdbcType=VARCHAR}
+			</if>
+	        <if test="totalFee != null">
+	        AND TOTAL_FEE = #{totalFee,jdbcType=VARCHAR}
+			</if>
+	        <if test="spbillCreateIp != null">
+	        AND SPBILL_CREATE_IP = #{spbillCreateIp,jdbcType=VARCHAR}
+			</if>
+	        <if test="timeStart != null">
+	        AND TIME_START = #{timeStart,jdbcType=NUMERIC}
+			</if>
+	        <if test="timeExpire != null">
+	        AND TIME_EXPIRE = #{timeExpire,jdbcType=NUMERIC}
+			</if>
+	        <if test="notifyUrl != null">
+	        AND NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR}
+			</if>
+	        <if test="status != null">
+	        AND STATUS = #{status,jdbcType=NUMERIC}
+			</if>
+	        <if test="prepayId != null">
+	        AND PREPAY_ID = #{prepayId,jdbcType=VARCHAR}
+			</if>
+	        <if test="returnCode != null">
+	        AND RETURN_CODE = #{returnCode,jdbcType=VARCHAR}
+			</if>
+	        <if test="returnMsg != null">
+	        AND RETURN_MSG = #{returnMsg,jdbcType=VARCHAR}
+			</if>
+	        <if test="openid != null">
+	        AND OPENID = #{openid,jdbcType=VARCHAR}
+			</if>
+	        <if test="bankType != null">
+	        AND BANK_TYPE = #{bankType,jdbcType=VARCHAR}
+			</if>
+	        <if test="transactionId != null">
+	        AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
+			</if>
+	        <if test="timeEnd != null">
+	        AND TIME_END = #{timeEnd,jdbcType=VARCHAR}
+			</if>
+	        <if test="outRefundNo != null">
+	        AND OUT_REFUND_NO = #{outRefundNo,jdbcType=VARCHAR}
+			</if>
+	        <if test="refundFee != null">
+	        AND REFUND_FEE = #{refundFee,jdbcType=VARCHAR}
+			</if>
+	        <if test="refundId != null">
+	        AND REFUND_ID = #{refundId,jdbcType=VARCHAR}
+			</if>
+	        <if test="createDate != null">
+	        AND CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+			</if>
+	        <if test="modifiedDate != null">
+	        AND MODIFIED_DATE = #{modifiedDate,jdbcType=TIMESTAMP}
+			</if>
+	        <if test="delFlag != null">
+	        AND DEL_FLAG = #{delFlag,jdbcType=NUMERIC}
+			</if>
+	</select>
+	 
+	<select id="findListFuzzy" resultType="com.xnk.service.api.model.WeiXinPay">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM weixin_pay 
+		WHERE
+	        <if test="id != null">
+			ID like 
+			<if test="dbName == 'oracle'">'%'||#{id,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{id,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{id,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="payId != null">
+			PAY_ID like 
+			<if test="dbName == 'oracle'">'%'||#{payId,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{payId,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{payId,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="nonceStr != null">
+			NONCE_STR like 
+			<if test="dbName == 'oracle'">'%'||#{nonceStr,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{nonceStr,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{nonceStr,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="body != null">
+			BODY like 
+			<if test="dbName == 'oracle'">'%'||#{body,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{body,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{body,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="detail != null">
+			DETAIL like 
+			<if test="dbName == 'oracle'">'%'||#{detail,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{detail,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{detail,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="outTradeNo != null">
+			OUT_TRADE_NO like 
+			<if test="dbName == 'oracle'">'%'||#{outTradeNo,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{outTradeNo,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{outTradeNo,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="totalFee != null">
+			TOTAL_FEE like 
+			<if test="dbName == 'oracle'">'%'||#{totalFee,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{totalFee,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{totalFee,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="spbillCreateIp != null">
+			SPBILL_CREATE_IP like 
+			<if test="dbName == 'oracle'">'%'||#{spbillCreateIp,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{spbillCreateIp,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{spbillCreateIp,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="timeStart != null">
+			TIME_START like 
+			<if test="dbName == 'oracle'">'%'||#{timeStart,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{timeStart,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{timeStart,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="timeExpire != null">
+			TIME_EXPIRE like 
+			<if test="dbName == 'oracle'">'%'||#{timeExpire,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{timeExpire,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{timeExpire,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="notifyUrl != null">
+			NOTIFY_URL like 
+			<if test="dbName == 'oracle'">'%'||#{notifyUrl,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{notifyUrl,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{notifyUrl,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="status != null">
+			STATUS like 
+			<if test="dbName == 'oracle'">'%'||#{status,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{status,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{status,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="prepayId != null">
+			PREPAY_ID like 
+			<if test="dbName == 'oracle'">'%'||#{prepayId,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{prepayId,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{prepayId,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="returnCode != null">
+			RETURN_CODE like 
+			<if test="dbName == 'oracle'">'%'||#{returnCode,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{returnCode,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{returnCode,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="returnMsg != null">
+			RETURN_MSG like 
+			<if test="dbName == 'oracle'">'%'||#{returnMsg,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{returnMsg,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{returnMsg,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="openid != null">
+			OPENID like 
+			<if test="dbName == 'oracle'">'%'||#{openid,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{openid,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{openid,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="bankType != null">
+			BANK_TYPE like 
+			<if test="dbName == 'oracle'">'%'||#{bankType,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{bankType,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{bankType,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="transactionId != null">
+			TRANSACTION_ID like 
+			<if test="dbName == 'oracle'">'%'||#{transactionId,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{transactionId,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{transactionId,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="timeEnd != null">
+			TIME_END like 
+			<if test="dbName == 'oracle'">'%'||#{timeEnd,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{timeEnd,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{timeEnd,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="outRefundNo != null">
+			OUT_REFUND_NO like 
+			<if test="dbName == 'oracle'">'%'||#{outRefundNo,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{outRefundNo,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{outRefundNo,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="refundFee != null">
+			REFUND_FEE like 
+			<if test="dbName == 'oracle'">'%'||#{refundFee,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{refundFee,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{refundFee,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="refundId != null">
+			REFUND_ID like 
+			<if test="dbName == 'oracle'">'%'||#{refundId,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{refundId,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{refundId,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="createDate != null">
+			CREATE_DATE like 
+			<if test="dbName == 'oracle'">'%'||#{createDate,jdbcType=TIMESTAMP}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{createDate,jdbcType=TIMESTAMP}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{createDate,jdbcType=TIMESTAMP}, '%')</if> 
+			AND
+			</if>
+	        <if test="modifiedDate != null">
+			MODIFIED_DATE like 
+			<if test="dbName == 'oracle'">'%'||#{modifiedDate,jdbcType=TIMESTAMP}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{modifiedDate,jdbcType=TIMESTAMP}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{modifiedDate,jdbcType=TIMESTAMP}, '%')</if> 
+			AND
+			</if>
+	        <if test="delFlag != null">
+			DEL_FLAG like 
+			<if test="dbName == 'oracle'">'%'||#{delFlag,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{delFlag,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{delFlag,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+			DEL_FLAG = 0
+	</select>
+	
+	<select id="selectByCondition" resultType="com.xnk.service.api.model.WeiXinPay">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM weixin_pay 
+		WHERE DEL_FLAG = 0
+	        <if test="id != null">
+	        AND ID = #{id,jdbcType=NUMERIC}
+			</if>
+	        <if test="payId != null">
+	        AND PAY_ID = #{payId,jdbcType=NUMERIC}
+			</if>
+	        <if test="nonceStr != null">
+	        AND NONCE_STR = #{nonceStr,jdbcType=VARCHAR}
+			</if>
+	        <if test="body != null">
+	        AND BODY = #{body,jdbcType=VARCHAR}
+			</if>
+	        <if test="detail != null">
+	        AND DETAIL = #{detail,jdbcType=VARCHAR}
+			</if>
+	        <if test="outTradeNo != null">
+	        AND OUT_TRADE_NO = #{outTradeNo,jdbcType=VARCHAR}
+			</if>
+	        <if test="totalFee != null">
+	        AND TOTAL_FEE = #{totalFee,jdbcType=VARCHAR}
+			</if>
+	        <if test="spbillCreateIp != null">
+	        AND SPBILL_CREATE_IP = #{spbillCreateIp,jdbcType=VARCHAR}
+			</if>
+	        <if test="timeStart != null">
+	        AND TIME_START = #{timeStart,jdbcType=NUMERIC}
+			</if>
+	        <if test="timeExpire != null">
+	        AND TIME_EXPIRE = #{timeExpire,jdbcType=NUMERIC}
+			</if>
+	        <if test="notifyUrl != null">
+	        AND NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR}
+			</if>
+	        <if test="status != null">
+	        AND STATUS = #{status,jdbcType=NUMERIC}
+			</if>
+	        <if test="prepayId != null">
+	        AND PREPAY_ID = #{prepayId,jdbcType=VARCHAR}
+			</if>
+	        <if test="returnCode != null">
+	        AND RETURN_CODE = #{returnCode,jdbcType=VARCHAR}
+			</if>
+	        <if test="returnMsg != null">
+	        AND RETURN_MSG = #{returnMsg,jdbcType=VARCHAR}
+			</if>
+	        <if test="openid != null">
+	        AND OPENID = #{openid,jdbcType=VARCHAR}
+			</if>
+	        <if test="bankType != null">
+	        AND BANK_TYPE = #{bankType,jdbcType=VARCHAR}
+			</if>
+	        <if test="transactionId != null">
+	        AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
+			</if>
+	        <if test="timeEnd != null">
+	        AND TIME_END = #{timeEnd,jdbcType=VARCHAR}
+			</if>
+	        <if test="outRefundNo != null">
+	        AND OUT_REFUND_NO = #{outRefundNo,jdbcType=VARCHAR}
+			</if>
+	        <if test="refundFee != null">
+	        AND REFUND_FEE = #{refundFee,jdbcType=VARCHAR}
+			</if>
+	        <if test="refundId != null">
+	        AND REFUND_ID = #{refundId,jdbcType=VARCHAR}
+			</if>
+	        <if test="createDate != null">
+	        AND CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+			</if>
+	        <if test="modifiedDate != null">
+	        AND MODIFIED_DATE = #{modifiedDate,jdbcType=TIMESTAMP}
+			</if>
+	        <if test="delFlag != null">
+	        AND DEL_FLAG = #{delFlag,jdbcType=NUMERIC}
+			</if>
+	</select>
+	
+	<select id="findListByCondition" resultType="com.xnk.service.api.model.WeiXinPay">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM weixin_pay 
+		WHERE DEL_FLAG = 0
+	        <if test="id != null">
+	        AND ID = #{id,jdbcType=NUMERIC}
+			</if>
+	        <if test="payId != null">
+	        AND PAY_ID = #{payId,jdbcType=NUMERIC}
+			</if>
+	        <if test="nonceStr != null">
+	        AND NONCE_STR = #{nonceStr,jdbcType=VARCHAR}
+			</if>
+	        <if test="body != null">
+	        AND BODY = #{body,jdbcType=VARCHAR}
+			</if>
+	        <if test="detail != null">
+	        AND DETAIL = #{detail,jdbcType=VARCHAR}
+			</if>
+	        <if test="outTradeNo != null">
+	        AND OUT_TRADE_NO = #{outTradeNo,jdbcType=VARCHAR}
+			</if>
+	        <if test="totalFee != null">
+	        AND TOTAL_FEE = #{totalFee,jdbcType=VARCHAR}
+			</if>
+	        <if test="spbillCreateIp != null">
+	        AND SPBILL_CREATE_IP = #{spbillCreateIp,jdbcType=VARCHAR}
+			</if>
+	        <if test="timeStart != null">
+	        AND TIME_START = #{timeStart,jdbcType=NUMERIC}
+			</if>
+	        <if test="timeExpire != null">
+	        AND TIME_EXPIRE = #{timeExpire,jdbcType=NUMERIC}
+			</if>
+	        <if test="notifyUrl != null">
+	        AND NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR}
+			</if>
+	        <if test="status != null">
+	        AND STATUS = #{status,jdbcType=NUMERIC}
+			</if>
+	        <if test="prepayId != null">
+	        AND PREPAY_ID = #{prepayId,jdbcType=VARCHAR}
+			</if>
+	        <if test="returnCode != null">
+	        AND RETURN_CODE = #{returnCode,jdbcType=VARCHAR}
+			</if>
+	        <if test="returnMsg != null">
+	        AND RETURN_MSG = #{returnMsg,jdbcType=VARCHAR}
+			</if>
+	        <if test="openid != null">
+	        AND OPENID = #{openid,jdbcType=VARCHAR}
+			</if>
+	        <if test="bankType != null">
+	        AND BANK_TYPE = #{bankType,jdbcType=VARCHAR}
+			</if>
+	        <if test="transactionId != null">
+	        AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
+			</if>
+	        <if test="timeEnd != null">
+	        AND TIME_END = #{timeEnd,jdbcType=VARCHAR}
+			</if>
+	        <if test="outRefundNo != null">
+	        AND OUT_REFUND_NO = #{outRefundNo,jdbcType=VARCHAR}
+			</if>
+	        <if test="refundFee != null">
+	        AND REFUND_FEE = #{refundFee,jdbcType=VARCHAR}
+			</if>
+	        <if test="refundId != null">
+	        AND REFUND_ID = #{refundId,jdbcType=VARCHAR}
+			</if>
+	        <if test="createDate != null">
+	        AND CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+			</if>
+	        <if test="modifiedDate != null">
+	        AND MODIFIED_DATE = #{modifiedDate,jdbcType=TIMESTAMP}
+			</if>
+	        <if test="delFlag != null">
+	        AND DEL_FLAG = #{delFlag,jdbcType=NUMERIC}
+			</if>
+	</select>
+	
+	<select id="selectCountByCondition" resultType="int">
+		SELECT count(1)
+		FROM weixin_pay 
+		WHERE
+	        <if test="id != null">
+			ID like 
+			<if test="dbName == 'oracle'">'%'||#{id,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{id,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{id,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="payId != null">
+			PAY_ID like 
+			<if test="dbName == 'oracle'">'%'||#{payId,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{payId,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{payId,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="nonceStr != null">
+			NONCE_STR like 
+			<if test="dbName == 'oracle'">'%'||#{nonceStr,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{nonceStr,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{nonceStr,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="body != null">
+			BODY like 
+			<if test="dbName == 'oracle'">'%'||#{body,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{body,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{body,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="detail != null">
+			DETAIL like 
+			<if test="dbName == 'oracle'">'%'||#{detail,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{detail,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{detail,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="outTradeNo != null">
+			OUT_TRADE_NO like 
+			<if test="dbName == 'oracle'">'%'||#{outTradeNo,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{outTradeNo,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{outTradeNo,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="totalFee != null">
+			TOTAL_FEE like 
+			<if test="dbName == 'oracle'">'%'||#{totalFee,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{totalFee,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{totalFee,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="spbillCreateIp != null">
+			SPBILL_CREATE_IP like 
+			<if test="dbName == 'oracle'">'%'||#{spbillCreateIp,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{spbillCreateIp,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{spbillCreateIp,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="timeStart != null">
+			TIME_START like 
+			<if test="dbName == 'oracle'">'%'||#{timeStart,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{timeStart,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{timeStart,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="timeExpire != null">
+			TIME_EXPIRE like 
+			<if test="dbName == 'oracle'">'%'||#{timeExpire,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{timeExpire,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{timeExpire,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="notifyUrl != null">
+			NOTIFY_URL like 
+			<if test="dbName == 'oracle'">'%'||#{notifyUrl,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{notifyUrl,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{notifyUrl,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="status != null">
+			STATUS like 
+			<if test="dbName == 'oracle'">'%'||#{status,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{status,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{status,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+	        <if test="prepayId != null">
+			PREPAY_ID like 
+			<if test="dbName == 'oracle'">'%'||#{prepayId,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{prepayId,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{prepayId,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="returnCode != null">
+			RETURN_CODE like 
+			<if test="dbName == 'oracle'">'%'||#{returnCode,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{returnCode,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{returnCode,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="returnMsg != null">
+			RETURN_MSG like 
+			<if test="dbName == 'oracle'">'%'||#{returnMsg,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{returnMsg,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{returnMsg,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="openid != null">
+			OPENID like 
+			<if test="dbName == 'oracle'">'%'||#{openid,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{openid,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{openid,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="bankType != null">
+			BANK_TYPE like 
+			<if test="dbName == 'oracle'">'%'||#{bankType,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{bankType,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{bankType,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="transactionId != null">
+			TRANSACTION_ID like 
+			<if test="dbName == 'oracle'">'%'||#{transactionId,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{transactionId,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{transactionId,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="timeEnd != null">
+			TIME_END like 
+			<if test="dbName == 'oracle'">'%'||#{timeEnd,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{timeEnd,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{timeEnd,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="outRefundNo != null">
+			OUT_REFUND_NO like 
+			<if test="dbName == 'oracle'">'%'||#{outRefundNo,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{outRefundNo,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{outRefundNo,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="refundFee != null">
+			REFUND_FEE like 
+			<if test="dbName == 'oracle'">'%'||#{refundFee,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{refundFee,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{refundFee,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="refundId != null">
+			REFUND_ID like 
+			<if test="dbName == 'oracle'">'%'||#{refundId,jdbcType=VARCHAR}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{refundId,jdbcType=VARCHAR}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{refundId,jdbcType=VARCHAR}, '%')</if> 
+			AND
+			</if>
+	        <if test="createDate != null">
+			CREATE_DATE like 
+			<if test="dbName == 'oracle'">'%'||#{createDate,jdbcType=TIMESTAMP}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{createDate,jdbcType=TIMESTAMP}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{createDate,jdbcType=TIMESTAMP}, '%')</if> 
+			AND
+			</if>
+	        <if test="modifiedDate != null">
+			MODIFIED_DATE like 
+			<if test="dbName == 'oracle'">'%'||#{modifiedDate,jdbcType=TIMESTAMP}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{modifiedDate,jdbcType=TIMESTAMP}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{modifiedDate,jdbcType=TIMESTAMP}, '%')</if> 
+			AND
+			</if>
+	        <if test="delFlag != null">
+			DEL_FLAG like 
+			<if test="dbName == 'oracle'">'%'||#{delFlag,jdbcType=NUMERIC}||'%'</if>
+			<if test="dbName == 'mssql'">'%'+#{delFlag,jdbcType=NUMERIC}+'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%',#{delFlag,jdbcType=NUMERIC}, '%')</if> 
+			AND
+			</if>
+			DEL_FLAG = 0
+	</select>
+	
+	<delete id="delete"> 
+		UPDATE weixin_pay SET DEL_FLAG = 1
+		WHERE ID = #{id, jdbcType=NUMERIC}
+	</delete>
+	
+	<delete id="deleteAll">
+		UPDATE weixin_pay SET DEL_FLAG = 1
+		WHERE ID in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+	</delete>
+	
+	<select id="findAllList" resultType="com.xnk.service.api.model.WeiXinPay">
+		SELECT
+			<include refid="Base_Column_List"/>
+		FROM weixin_pay WHERE DEL_FLAG = 0
+	</select>
+	
+</mapper>

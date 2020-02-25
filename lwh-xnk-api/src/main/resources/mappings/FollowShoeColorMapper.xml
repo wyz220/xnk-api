@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.user.FollowShoeColorMapper">
+  <resultMap id="BaseResultMap" type="com.xnk.service.api.model.FollowShoeColor">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="follow_id" jdbcType="BIGINT" property="followId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="release_price" jdbcType="DOUBLE" property="releasePrice" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="author_id" jdbcType="BIGINT" property="authorId"/>
+    <result column="evaluation_num" jdbcType="INTEGER" property="evaluationNum"/>
+    <result column="user_num" jdbcType="INTEGER" property="userNum"/>
+    <result column="color_num" jdbcType="INTEGER" property="colorNum"/>
+    <result column="hot_num" jdbcType="INTEGER" property="hotNum"/>
+    <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, follow_id, type, status,create_time
+  </sql>
+  
+  <!-- 模糊查询 -->
+	<sql id="allAndLike">
+		<trim suffix="" suffixOverrides=",">
+		    <if test="id != null" > and id = #{id, jdbcType=BIGINT} </if>
+		    <if test="userId != null" > and user_id = #{userId, jdbcType=BIGINT} </if>
+		    <if test="followId != null" > and follow_id = #{followId, jdbcType=BIGINT} </if>
+		    <if test="type != null" > and type = #{type, jdbcType=INTEGER} </if>
+		    <if test="status != null" > and status = #{status, jdbcType=INTEGER} </if>
+		</trim>
+	</sql>
+	
+  <!-- 总数 -->
+	<select id="count" resultType="java.lang.Integer">
+		SELECT count(id) from wx_follow_shoe_color where user_id = #{userId,jdbcType=BIGINT} 
+		<if test="type != null and type != 0" > and type = #{type,jdbcType=INTEGER}  </if>
+	</select>
+	
+    <select id="page" resultMap="BaseResultMap">
+		SELECT a.*
+		<if test="type != null and type == 1" > ,b.*,b.shoe_id as shoeColorId  </if>
+		<if test="type != null and type == 2" > ,c.*,c.color_id as shoeColorId  </if>
+		<if test="type != null and type == 0" > 
+,(case when a.type=1 then b.name else c.name end) as name
+,(case when a.type=1 then b.year else c.year end) as year
+,(case when a.type=1 then b.release_price else c.release_price end) as release_price
+,(case when a.type=1 then b.sn else c.sn end) as sn
+,(case when a.type=1 then b.author_id else c.author_id end) as author_id
+,(case when a.type=1 then b.evaluation_num else c.evaluation_num end) as evaluation_num
+,(case when a.type=1 then b.user_num else c.name end) as user_num
+,(case when a.type=1 then b.color_num else c.name end) as color_num
+,(case when a.type=1 then b.hot_num else c.name end) as hot_num
+,(case when a.type=1 then b.order_num else c.name end) as order_num
+,(case when a.type=1 then b.shoe_id else c.color_id end) as shoeColorId
+  </if>
+		 from 
+(SELECT * from wx_follow_shoe_color where user_id = #{userId,jdbcType=BIGINT} 
+<if test="type != null and type != 0" > and type = #{type,jdbcType=INTEGER}  </if>
+) a 
+<if test="type != null and type == 1" > LEFT JOIN shoe b on a.follow_id = b.shoe_id  </if>
+<if test="type != null and type == 2" > LEFT JOIN color c on a.follow_id = c.color_id  </if>
+<if test="type != null and type == 0" > 
+LEFT JOIN shoe b on a.follow_id = b.shoe_id
+LEFT JOIN color c on a.follow_id = c.color_id  
+</if>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+		limit #{page.start},#{page.pageSize}
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM wx_follow_shoe_color
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+	</select>
+	
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_follow_shoe_color
+    <where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from wx_follow_shoe_color
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xnk.service.api.model.FollowShoeColor">
+    insert into wx_follow_shoe_color (id, user_id, follow_id, 
+      type, status,create_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{followId,jdbcType=BIGINT}, 
+      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <update id="update" parameterType="com.xnk.service.api.model.FollowShoeColor">
+    update wx_follow_shoe_color
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="followId != null">
+        follow_id = #{followId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

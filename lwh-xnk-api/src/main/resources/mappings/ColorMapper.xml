@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.shoe.ColorDao">
+  <resultMap id="BaseResultMap" type="com.xnk.service.api.model.Color">
+    <id column="color_id" jdbcType="BIGINT" property="colorId" />
+    <result column="file_id" jdbcType="VARCHAR" property="fileId" />
+    <result column="shoe_id" jdbcType="BIGINT" property="shoeId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="release_price" jdbcType="DOUBLE" property="releasePrice" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="state" jdbcType="BIT" property="state" />
+    <result column="evaluation_num" jdbcType="INTEGER" property="evaluationNum" />
+    <result column="user_num" jdbcType="INTEGER" property="userNum" />
+    <result column="color_num" jdbcType="INTEGER" property="colorNum" />
+    <result column="hot_num" jdbcType="INTEGER" property="hotNum" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="author_id" jdbcType="BIGINT" property="authorId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    color_id, file_id, shoe_id,shoe_type,shoe_type_name, name, release_price, sn, year, state, evaluation_num, 
+    user_num, color_num, hot_num, order_num,modify_date, create_date, author_id
+  </sql>
+  
+  <!-- 模糊查询 -->
+	<sql id="allAndLike">
+		<trim suffix="" suffixOverrides=",">
+				<if test="colorId != null" > and color_id = #{colorId, jdbcType=BIGINT} </if>
+				<if test="shoeId != null" > and shoe_id = #{shoeId, jdbcType=BIGINT} </if>
+				<if test="name != null and name != ''" > and name like concat('%',#{name, jdbcType=VARCHAR},'%') </if>
+				<if test="shoeType != null " > and shoe_type = #{shoeType, jdbcType=INTEGER} </if>
+		</trim>
+	</sql>
+	
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from color
+    where color_id = #{colorId,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 总数 -->
+	<select id="count" resultType="java.lang.Integer">
+		select count(color_id) from color
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+    <select id="page" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from color 
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+		limit #{page.start},#{page.pageSize}
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM color
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+	</select>
+	
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from color
+    where color_id = #{colorId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xnk.service.api.model.Color">
+    insert into color (color_id, file_id, shoe_id, 
+      name, release_price, sn, 
+      year, state, evaluation_num, 
+      user_num, color_num, hot_num, 
+      modify_date, create_date, author_id
+      )
+    values (#{colorId,jdbcType=BIGINT}, #{fileId,jdbcType=VARCHAR}, #{shoeId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{releasePrice,jdbcType=DOUBLE}, #{sn,jdbcType=VARCHAR}, 
+      #{year,jdbcType=INTEGER}, #{state,jdbcType=BIT}, #{evaluationNum,jdbcType=INTEGER}, 
+      #{userNum,jdbcType=INTEGER}, #{colorNum,jdbcType=INTEGER}, #{hotNum,jdbcType=INTEGER}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{authorId,jdbcType=BIGINT}
+      )
+  </insert>
+  
+  <update id="update" parameterType="com.xnk.service.api.model.Color">
+    update color
+    <set>
+      <if test="fileId != null">
+        file_id = #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="shoeId != null">
+        shoe_id = #{shoeId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="releasePrice != null">
+        release_price = #{releasePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="evaluationNum != null">
+        evaluation_num = #{evaluationNum,jdbcType=INTEGER},
+      </if>
+      <if test="userNum != null">
+        user_num = #{userNum,jdbcType=INTEGER},
+      </if>
+      <if test="colorNum != null">
+        color_num = #{colorNum,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        hot_num = #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where color_id = #{colorId,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

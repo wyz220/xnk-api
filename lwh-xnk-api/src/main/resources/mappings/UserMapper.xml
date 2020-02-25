@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.user.UserMapper">
+  <resultMap id="BaseResultMap" type="com.xnk.service.api.model.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="balance" jdbcType="DOUBLE" property="balance" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+    <result column="wxappid" jdbcType="VARCHAR" property="wxappid" />
+    <result column="province_id" jdbcType="VARCHAR" property="provinceId" />
+    <result column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="area_id" jdbcType="VARCHAR" property="areaId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+  <resultMap id="userVoResultMap" type="com.xnk.service.api.vo.UserVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="balance" jdbcType="DOUBLE" property="balance" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+    <result column="wxappid" jdbcType="VARCHAR" property="wxappid" />
+    <result column="province_id" jdbcType="VARCHAR" property="provinceId" />
+    <result column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="area_id" jdbcType="VARCHAR" property="areaId" />
+    <result column="evaluation_release_count" jdbcType="INTEGER" property="evaluationReleaseCount" />
+    <result column="evaluation_already_buy_count" jdbcType="INTEGER" property="evaluationAlreadyBuyCount" />
+    <result column="evaluation_sell_count" jdbcType="INTEGER" property="evaluationSellCount" />
+    <result column="evaluation_like_count" jdbcType="INTEGER" property="evaluationLikeCount" />
+    <result column="my_follow_user_count" jdbcType="INTEGER" property="myFollowUserCount" />
+    <result column="my_follow_fan_count" jdbcType="INTEGER" property="myFollowFanCount" />
+    <result column="my_follow_shoe_count" jdbcType="INTEGER" property="myFollowShoeCount" />
+    <result column="my_follow_color_count" jdbcType="INTEGER" property="myFollowColorCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    id, source,balance, birthday, sex, status, address, name, nickname, password, icon, introduction, 
+    phone, email, openid, unionid, wxappid, province_id, city_id, area_id, create_time, 
+    update_time
+  </sql>
+  
+  <!-- 模糊查询 -->
+	<sql id="allAndLike">
+		<trim suffix="" suffixOverrides=",">
+				<if test="openid != null and openid != ''" > and openid like concat('%',#{openid, jdbcType=VARCHAR},'%') </if>
+		</trim>
+	</sql>
+	
+  <!-- 总数 -->
+	<select id="count" resultType="java.lang.Integer">
+		select count(id) from wx_user
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+    <select id="page" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from wx_user 
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+		limit #{page.start},#{page.pageSize}
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM wx_user
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+	</select>
+
+
+	<select id="listByIds" resultMap="userVoResultMap"
+		parameterType="Long">
+		SELECT a.*,b.* from wx_user a LEFT JOIN wx_user_total b on a.id =
+		b.user_id
+		where id in
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+    
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_user
+    <where>
+        <trim suffix="" suffixOverrides=",">
+				<if test="id != null" > and  id = #{id,jdbcType=BIGINT} </if>
+		        <if test="openid != null and openid != ''" > and openid = #{openid,jdbcType=VARCHAR} </if>
+		</trim>
+    </where>
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from wx_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xnk.service.api.model.User" keyProperty="id" useGeneratedKeys="true">
+    insert into wx_user (id, source, balance, birthday, 
+      sex, status, address, name, 
+      nickname, password, icon, 
+      introduction, phone, email, 
+      openid, unionid, wxappid, 
+      province_id, city_id, area_id, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{source,jdbcType=INTEGER},#{balance,jdbcType=DOUBLE}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{sex,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, 
+      #{openid,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, #{wxappid,jdbcType=VARCHAR}, 
+      #{provinceId,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, #{areaId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <update id="update" parameterType="com.xnk.service.api.model.User">
+    update wx_user
+    <set>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null">
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxappid != null">
+        wxappid = #{wxappid,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

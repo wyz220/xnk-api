@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.shoe.ShoeDao"> 
+  <resultMap id="BaseResultMap" type="com.xnk.service.api.model.Shoe">
+    <id column="shoe_id" jdbcType="BIGINT" property="shoeId" />
+    <result column="file_id" jdbcType="VARCHAR" property="fileId" />
+    <result column="brand_id" jdbcType="BIGINT" property="brandId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="release_price" jdbcType="DOUBLE" property="releasePrice" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="state" jdbcType="BIT" property="state" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="shoe_type" jdbcType="VARCHAR" property="shoeType" />
+    <result column="shoe_type_name" jdbcType="INTEGER" property="shoeTypeName" />
+    <result column="is_check" jdbcType="BIT" property="isCheck"/>
+    <result column="author_id" jdbcType="BIGINT" property="authorId"/>
+    <result column="evaluation_num" jdbcType="INTEGER" property="evaluationNum"/>
+    <result column="user_num" jdbcType="INTEGER" property="userNum"/>
+    <result column="color_num" jdbcType="INTEGER" property="colorNum"/>
+    <result column="hot_num" jdbcType="INTEGER" property="hotNum"/>
+    <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+		shoe_id,name,brand_id,file_id,year,release_price,sn,state,modify_date,shoe_type,shoe_type_name,is_check,author_id,
+		evaluation_num,user_num,color_num,hot_num,order_num,create_date
+    </sql>
+    
+    <!-- 模糊查询 -->
+	<sql id="allAndLike">
+		<trim suffix="" suffixOverrides=",">
+				<if test="shoeId != null" > and shoe_id = #{shoeId, jdbcType=BIGINT} </if>
+				<if test="name != null and name != ''" > and name like concat('%',#{name, jdbcType=VARCHAR},'%') </if>
+		       <if test="shoeType != null " > and shoe_type = #{shoeType, jdbcType=INTEGER} </if>
+		       <if test="state != null " > and state = #{state, jdbcType=BIT} </if>
+		</trim>
+	</sql>
+	
+<select id="get" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM shoe
+		WHERE shoe_id = #{shoeId, jdbcType=BIGINT}
+	</select>
+	
+	  <insert id="insert" parameterType="com.xnk.service.api.model.Shoe">
+    insert into shoe (shoe_id, brand_id, file_id, 
+      name, year, release_price, 
+      sn, state, modify_date, 
+      create_date, shoe_type, shoe_type_name, 
+      is_check, author_id, evaluation_num, 
+      user_num, color_num, hot_num, 
+      order_num)
+    values (#{shoeId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{fileId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, #{releasePrice,jdbcType=DOUBLE}, 
+      #{sn,jdbcType=VARCHAR}, #{state,jdbcType=BIT}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{shoeType,jdbcType=BIT}, #{shoeTypeName,jdbcType=VARCHAR}, 
+      #{isCheck,jdbcType=BIT}, #{authorId,jdbcType=BIGINT}, #{evaluationNum,jdbcType=INTEGER}, 
+      #{userNum,jdbcType=INTEGER}, #{colorNum,jdbcType=INTEGER}, #{hotNum,jdbcType=INTEGER}, 
+      #{orderNum,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="update" parameterType="com.xnk.service.api.model.Shoe">
+    update shoe
+    <set>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="fileId != null">
+        file_id = #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="releasePrice != null">
+        release_price = #{releasePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shoeType != null">
+        shoe_type = #{shoeType,jdbcType=BIT},
+      </if>
+      <if test="shoeTypeName != null">
+        shoe_type_name = #{shoeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isCheck != null">
+        is_check = #{isCheck,jdbcType=BIT},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="evaluationNum != null">
+        evaluation_num = #{evaluationNum,jdbcType=INTEGER},
+      </if>
+      <if test="userNum != null">
+        user_num = #{userNum,jdbcType=INTEGER},
+      </if>
+      <if test="colorNum != null">
+        color_num = #{colorNum,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        hot_num = #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where shoe_id = #{shoeId,jdbcType=BIGINT}
+  </update>
+  
+	<!-- 总数 -->
+	<select id="count" resultType="java.lang.Integer">
+		select count(shoe_id) from shoe
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+    <select id="page" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from shoe 
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+		limit #{page.start},#{page.pageSize}
+	</select>
+	
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from shoe
+    where shoe_id = #{shoeId,jdbcType=BIGINT}
+  </delete>
+  
+	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM shoe
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+	</select>
+	
+</mapper>

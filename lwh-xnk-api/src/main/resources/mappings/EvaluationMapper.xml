@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.evaluation.EvaluationDao">
+  <resultMap id="BaseResultMap" type="com.xnk.service.api.model.Evaluation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="evaluation_user_img" jdbcType="VARCHAR" property="evaluationUserImg" />
+    <result column="recomm_write_seq_num" jdbcType="INTEGER" property="recommWriteSeqNum" />
+    <result column="evaluation_shoe_type" jdbcType="VARCHAR" property="evaluationShoeType" />
+    <result column="postion" jdbcType="VARCHAR" property="postion" />
+    <result column="half_court" jdbcType="VARCHAR" property="halfCourt" />
+    <result column="stack_no_ball_state" jdbcType="VARCHAR" property="stackNoBallState" />
+    <result column="dribble_use" jdbcType="VARCHAR" property="dribbleUse" />
+    <result column="shang_lan_use" jdbcType="VARCHAR" property="shangLanUse" />
+    <result column="tou_lan_use" jdbcType="VARCHAR" property="touLanUse" />
+    <result column="attack" jdbcType="VARCHAR" property="attack" />
+    <result column="defend" jdbcType="VARCHAR" property="defend" />
+    <result column="nut_cap" jdbcType="VARCHAR" property="nutCap" />
+    <result column="basketball_play" jdbcType="VARCHAR" property="basketballPlay" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="height" jdbcType="DOUBLE" property="height" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="foot_type" jdbcType="VARCHAR" property="footType" />
+    <result column="foot_img_url" jdbcType="VARCHAR" property="footImgUrl" />
+    <result column="bound_img_url" jdbcType="VARCHAR" property="boundImgUrl" />
+    <result column="bound_type" jdbcType="VARCHAR" property="boundType" />
+    <result column="instep_type" jdbcType="VARCHAR" property="instepType" />
+    <result column="instep_img_url" jdbcType="VARCHAR" property="instepImgUrl" />
+    <result column="bound_feet_file_id" jdbcType="BIGINT" property="boundFeetFileId" />
+    <result column="foot_type_file_id" jdbcType="BIGINT" property="footTypeFileId" />
+    <result column="instep_file_id" jdbcType="BIGINT" property="instepFileId" />
+    <result column="physical_function" jdbcType="VARCHAR" property="physicalFunction" />
+    <result column="physical_function_file_id" jdbcType="BIGINT" property="physicalFunctionFileId" />
+    <result column="shoe_type" jdbcType="VARCHAR" property="shoeType" />
+    <result column="shoe_type_id" jdbcType="BIGINT" property="shoeTypeId" />
+    <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
+    <result column="brand_id" jdbcType="BIGINT" property="brandId" />
+    <result column="shoe_name" jdbcType="VARCHAR" property="shoeName" />
+    <result column="shoe_id" jdbcType="BIGINT" property="shoeId" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="color_name" jdbcType="VARCHAR" property="colorName" />
+    <result column="color_id" jdbcType="BIGINT" property="colorId" />
+    <result column="is_partial_code" jdbcType="VARCHAR" property="isPartialCode" />
+    <result column="is_partial_id" jdbcType="BIGINT" property="isPartialId" />
+    <result column="shoe_size_name" jdbcType="VARCHAR" property="shoeSizeName" />
+    <result column="shoe_size_id" jdbcType="BIGINT" property="shoeSizeId" />
+    <result column="sock_type" jdbcType="VARCHAR" property="sockType" />
+    <result column="sock_type_id" jdbcType="BIGINT" property="sockTypeId" />
+    <result column="field_type" jdbcType="VARCHAR" property="fieldType" />
+    <result column="field_type_id" jdbcType="BIGINT" property="fieldTypeId" />
+    <result column="first_foot_feel_content" jdbcType="VARCHAR" property="firstFootFeelContent" />
+    <result column="after_use_foot_feel_content" jdbcType="VARCHAR" property="afterUseFootFeelContent" />
+    <result column="appreance_level" jdbcType="INTEGER" property="appreanceLevel" />
+    <result column="appreance_img_url" jdbcType="VARCHAR" property="appreanceImgUrl" />
+    <result column="appreance_shoe_evaluate" jdbcType="VARCHAR" property="appreanceShoeEvaluate" />
+    <result column="appreance_color_evaluate" jdbcType="VARCHAR" property="appreanceColorEvaluate" />
+    <result column="appreance_influence" jdbcType="VARCHAR" property="appreanceInfluence" />
+    <result column="work_level" jdbcType="INTEGER" property="workLevel" />
+    <result column="work_img_url" jdbcType="VARCHAR" property="workImgUrl" />
+    <result column="work_feng_xian" jdbcType="VARCHAR" property="workFengXian" />
+    <result column="work_jiao_shui" jdbcType="VARCHAR" property="workJiaoShui" />
+    <result column="package_level" jdbcType="INTEGER" property="packageLevel" />
+    <result column="package_img_url" jdbcType="VARCHAR" property="packageImgUrl" />
+    <result column="package_first" jdbcType="VARCHAR" property="packageFirst" />
+    <result column="package_middle" jdbcType="VARCHAR" property="packageMiddle" />
+    <result column="package_after" jdbcType="VARCHAR" property="packageAfter" />
+    <result column="zhi_cheng_level" jdbcType="INTEGER" property="zhiChengLevel" />
+    <result column="zhi_cheng_img_url" jdbcType="VARCHAR" property="zhiChengImgUrl" />
+    <result column="zhi_cheng_mian_first" jdbcType="VARCHAR" property="zhiChengMianFirst" />
+    <result column="zhi_cheng_mian_middle" jdbcType="VARCHAR" property="zhiChengMianMiddle" />
+    <result column="zhi_cheng_mian_after" jdbcType="VARCHAR" property="zhiChengMianAfter" />
+    <result column="zhi_cheng_bottom_first" jdbcType="VARCHAR" property="zhiChengBottomFirst" />
+    <result column="zhi_cheng_bottom_middle" jdbcType="VARCHAR" property="zhiChengBottomMiddle" />
+    <result column="zhi_cheng_bottom_after" jdbcType="VARCHAR" property="zhiChengBottomAfter" />
+    <result column="flex_level" jdbcType="INTEGER" property="flexLevel" />
+    <result column="flex_img_url" jdbcType="VARCHAR" property="flexImgUrl" />
+    <result column="flex_shoe_mian_bottom" jdbcType="VARCHAR" property="flexShoeMianBottom" />
+    <result column="flex_shoe_mian" jdbcType="VARCHAR" property="flexShoeMian" />
+    <result column="flex_shoe_bottom" jdbcType="VARCHAR" property="flexShoeBottom" />
+    <result column="touqi_level" jdbcType="INTEGER" property="touqiLevel" />
+    <result column="touqi_img_url" jdbcType="VARCHAR" property="touqiImgUrl" />
+    <result column="touqi_content" jdbcType="VARCHAR" property="touqiContent" />
+    <result column="zhuadili_level" jdbcType="INTEGER" property="zhuadiliLevel" />
+    <result column="zhuadili_img_url" jdbcType="VARCHAR" property="zhuadiliImgUrl" />
+    <result column="zhuadili_content" jdbcType="VARCHAR" property="zhuadiliContent" />
+    <result column="naimo_level" jdbcType="INTEGER" property="naimoLevel" />
+    <result column="naimo_img_url" jdbcType="VARCHAR" property="naimoImgUrl" />
+    <result column="naimo_content" jdbcType="VARCHAR" property="naimoContent" />
+    <result column="huanzhen_level" jdbcType="INTEGER" property="huanzhenLevel" />
+    <result column="huanzhen_img_url" jdbcType="VARCHAR" property="huanzhenImgUrl" />
+    <result column="huanzhen_content" jdbcType="VARCHAR" property="huanzhenContent" />
+    <result column="huanzhen_first" jdbcType="VARCHAR" property="huanzhenFirst" />
+    <result column="huanzhen_after" jdbcType="VARCHAR" property="huanzhenAfter" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="summary_img_url" jdbcType="VARCHAR" property="summaryImgUrl" />
+    <result column="evaluation_img_url" jdbcType="VARCHAR" property="evaluationImgUrl" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="evaluation_date" jdbcType="TIMESTAMP" property="evaluationDate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="recomm_num" jdbcType="INTEGER" property="recommNum" />
+    <result column="hot_num" jdbcType="INTEGER" property="hotNum" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="foot_feel_comment_num" jdbcType="INTEGER" property="footFeelCommentNum" />
+    <result column="foot_feel_good_num" jdbcType="INTEGER" property="footFeelGoodNum" />
+    <result column="appreance_comment_num" jdbcType="INTEGER" property="appreanceCommentNum" />
+    <result column="appreance_good_num" jdbcType="INTEGER" property="appreanceGoodNum" />
+    <result column="work_comment_num" jdbcType="INTEGER" property="workCommentNum" />
+    <result column="work_good_num" jdbcType="INTEGER" property="workGoodNum" />
+    <result column="package_comment_num" jdbcType="INTEGER" property="packageCommentNum" />
+    <result column="package_good_num" jdbcType="INTEGER" property="packageGoodNum" />
+    <result column="zhi_cheng_comment_num" jdbcType="INTEGER" property="zhiChengCommentNum" />
+    <result column="zhi_cheng_good_num" jdbcType="INTEGER" property="zhiChengGoodNum" />
+    <result column="flex_comment_num" jdbcType="INTEGER" property="flexCommentNum" />
+    <result column="flex_good_num" jdbcType="INTEGER" property="flexGoodNum" />
+    <result column="touqi_comment_num" jdbcType="INTEGER" property="touqiCommentNum" />
+    <result column="touqi_good_num" jdbcType="INTEGER" property="touqiGoodNum" />
+    <result column="zhuadili_comment_num" jdbcType="INTEGER" property="zhuadiliCommentNum" />
+    <result column="zhuadili_good_num" jdbcType="INTEGER" property="zhuadiliGoodNum" />
+    <result column="naimo_comment_num" jdbcType="INTEGER" property="naimoCommentNum" />
+    <result column="naimo_good_num" jdbcType="INTEGER" property="naimoGoodNum" />
+    <result column="huanzhen_comment_num" jdbcType="INTEGER" property="huanzhenCommentNum" />
+    <result column="huanzhen_good_num" jdbcType="INTEGER" property="huanzhenGoodNum" />
+    <result column="zhuijia_num" jdbcType="INTEGER" property="zhuijiaNum" />
+  </resultMap>
+  <sql id="Base_Column_List_buy">
+    id, user_id, user_name, 
+    evaluation_img_url, title, introduction, evaluation_date, status, order_num, recomm_num, recomm_write_seq_num,
+    hot_num, remark, create_date, modify_date
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, user_name, recomm_write_seq_num,evaluation_shoe_type, postion, half_court, stack_no_ball_state, 
+    dribble_use, shang_lan_use, tou_lan_use, attack, defend, nut_cap, basketball_play, 
+    gender, age, height, weight, foot_type, foot_img_url, bound_img_url, bound_type, 
+    instep_type, instep_img_url, bound_feet_file_id, foot_type_file_id, instep_file_id, 
+    physical_function, physical_function_file_id, shoe_type, shoe_type_id, brand_name, 
+    brand_id, shoe_name, shoe_id, color_name, color_id,size,is_partial_code, is_partial_id, shoe_size_name, shoe_size_id, 
+    sock_type, sock_type_id, field_type, field_type_id, first_foot_feel_content, after_use_foot_feel_content, 
+    appreance_level, appreance_img_url, appreance_shoe_evaluate, appreance_color_evaluate, 
+    appreance_influence, work_level, work_img_url, work_feng_xian, work_jiao_shui, package_level, 
+    package_img_url, package_first, package_middle, package_after, zhi_cheng_level, zhi_cheng_img_url, 
+    zhi_cheng_mian_first, zhi_cheng_mian_middle, zhi_cheng_mian_after, zhi_cheng_bottom_first, 
+    zhi_cheng_bottom_middle, zhi_cheng_bottom_after, flex_level, flex_img_url, flex_shoe_mian_bottom, 
+    flex_shoe_mian, flex_shoe_bottom, touqi_level, touqi_img_url, touqi_content, zhuadili_level, 
+    zhuadili_img_url, zhuadili_content, naimo_level, naimo_img_url, naimo_content, huanzhen_level, 
+    huanzhen_img_url, huanzhen_content, huanzhen_first, huanzhen_after, summary, summary_img_url, 
+    evaluation_img_url, title, introduction, evaluation_date, status, order_num, recomm_num, 
+    hot_num, remark, create_date, modify_date, foot_feel_comment_num, foot_feel_good_num, appreance_comment_num, 
+    appreance_good_num, work_comment_num, work_good_num, package_comment_num, package_good_num, 
+    zhi_cheng_comment_num, zhi_cheng_good_num, flex_comment_num, flex_good_num, touqi_comment_num, 
+    touqi_good_num, zhuadili_comment_num, zhuadili_good_num, naimo_comment_num, naimo_good_num, 
+    huanzhen_comment_num, huanzhen_good_num, zhuijia_num
+  </sql>
+   <!-- 模糊查询 -->
+	<sql id="allAndLike">
+		<trim suffix="" suffixOverrides=",">
+			<if test="userId != null">
+				and user_id = #{userId,jdbcType=BIGINT}
+			</if>
+			<if test="userName != null and userName != ''">
+				and user_name = #{userName,jdbcType=VARCHAR}
+			</if>
+			<if test="recommWriteSeqNum != null">
+				and recomm_write_seq_num = #{recommWriteSeqNum,jdbcType=INTEGER}
+			</if>
+			<if test="shoeSizeId != null">
+				and shoe_size_id = #{shoeSizeId,jdbcType=BIGINT}
+			</if>
+			<if test="brandId != null">
+				and brand_id = #{brandId,jdbcType=BIGINT}
+			</if>
+			<if test="shoeId != null">
+				and shoe_id = #{shoeId,jdbcType=BIGINT}
+			</if>
+			<if test="colorId != null">
+				and color_id = #{colorId,jdbcType=BIGINT}
+			</if>
+			<if test="shoeTypeId != null">
+                and shoe_type_id = #{shoeTypeId,jdbcType=BIGINT}
+            </if>
+			<if test="evaluationDate != null">
+				and evaluation_date = #{evaluationDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="boundFeetFileId != null">
+				and bound_feet_file_id = #{boundFeetFileId,jdbcType=BIGINT}
+			</if>
+			<if test="footTypeFileId != null">
+				and foot_type_file_id = #{footTypeFileId,jdbcType=BIGINT}
+			</if>
+			<if test="instepFileId != null">
+				and instep_file_id = #{instepFileId,jdbcType=BIGINT}
+			</if>
+			<if test="status != null">
+				and status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="footType != null and footType != ''">
+				and foot_type = #{footType,jdbcType=VARCHAR}
+			</if>
+			<if test="boundType != null and boundType != ''">
+				and bound_type = #{boundType,jdbcType=VARCHAR}
+			</if>
+			<if test="instepType != null and instepType != ''">
+				and instep_type = #{instepType,jdbcType=VARCHAR}
+			</if>
+			<if test="sockType != null and sockType != ''">
+				and sock_type = #{sockType,jdbcType=VARCHAR}
+			</if>
+			<if test="fieldType != null and fieldType != ''">
+				and field_type = #{fieldType,jdbcType=VARCHAR}
+			</if>
+			<if test="physicalFunction != null and physicalFunction != ''">
+				and physical_function = #{physicalFunction,jdbcType=VARCHAR}
+			</if>
+			<if test="gender != null">
+				and gender = #{gender,jdbcType=INTEGER}
+			</if>
+			<if test="age != null">
+				and age = #{age,jdbcType=INTEGER}
+			</if>
+			<if test="height != null">
+				and height = #{height,jdbcType=DOUBLE}
+			</if>
+			<if test="weight != null">
+				and weight = #{weight,jdbcType=INTEGER}
+			</if>
+			<if test="basketballPlay != null and basketballPlay != ''">
+				and basketball_play = #{basketballPlay,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and title like
+				concat('%',#{title, jdbcType=VARCHAR},'%')
+			</if>
+			<if test="introduction != null and introduction != ''">
+				and introduction like
+				concat('%',#{introduction, jdbcType=VARCHAR},'%')
+			</if>
+			<if test="colorName != null and colorName != ''">
+				and color_name like
+				concat('%',#{colorName, jdbcType=VARCHAR},'%')
+			</if>
+			<if test="shoeName != null and shoeName != ''">
+				and shoe_name like
+				concat('%',#{shoeName, jdbcType=VARCHAR},'%')
+			</if>
+			<if test="attack != null and attack != ''">
+				and attack = #{attack,jdbcType=VARCHAR}
+			</if>
+			<if test="defend != null and defend != ''">
+				and defend = #{defend,jdbcType=VARCHAR}
+			</if>
+			<if test="halfCourt != null and halfCourt != ''">
+				and half_court = #{halfCourt,jdbcType=VARCHAR}
+			</if>
+			<if test="orderNum != null and orderNum != ''">
+				and order_num = #{orderNum,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and remark like
+				concat('%',#{remark, jdbcType=VARCHAR},'%')
+			</if>
+			<if test="shoeType != null and shoeType != ''">
+				and shoe_type = #{shoeType,jdbcType=VARCHAR}
+			</if>
+			<if test="brandName != null and brandName != ''">
+				and brand_name = #{brandName,jdbcType=VARCHAR}
+			</if>
+			<if test="createDate != null">
+				and create_date = #{createDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="modifyDate != null">
+				and modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="recommNum != null">
+				and recomm_num = #{recommNum,jdbcType=INTEGER}
+			</if>
+			<if test="hotNum != null">
+				and hot_num = #{hotNum,jdbcType=INTEGER}
+			</if>
+		</trim>
+	</sql>
+	
+  <!-- 总数 -->
+	<select id="count" resultType="java.lang.Integer">
+		select count(id) from evaluation
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+    <select id="page" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from evaluation 
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+		limit #{page.start},#{page.pageSize}
+	</select>
+	
+	<select id="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM evaluation
+		<where><include refid="allAndLike"/>
+			<choose>
+				<when test="page !=null and page.condition != null and page.condition != ''">
+					${page.condition} 
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				order by ${page.orderBy} 
+			</when>
+		</choose>
+	</select>
+	
+	<select id="getUserBuyList" resultMap="BaseResultMap">
+			SELECT b.* from 
+(
+SELECT evaluation_id from xnk_order where status = 1 and user_id =  #{userId,jdbcType=BIGINT} ) 
+a LEFT JOIN evaluation b on a.evaluation_id = b.id
+	</select>
+	
+	<select id="getUserSellList" resultMap="BaseResultMap">
+SELECT a.evaluation_id,a.user_id,a.nick_name as user_name,b.evaluation_img_url, b.title, b.introduction, b.evaluation_date, b.status, b.order_num, b.recomm_num, 
+b.recomm_write_seq_num, b.hot_num, b.remark, b.create_date, b.modify_date  from 
+(
+SELECT evaluation_id,user_id,nick_name from xnk_order where status = 1 ) a INNER JOIN (
+SELECT * from evaluation where status = 1 and user_id = #{userId,jdbcType=BIGINT}
+) b on a.evaluation_id = b.id 
+	</select>
+	
+	
+		<select id="getUserLikeList" resultMap="BaseResultMap">
+	SELECT a.* from evaluation  a where EXISTS (
+SELECT 1 from user_do b where b.type = 2 and b.status = 1 
+and b.evaluation_id = a. id and b.user_id = #{userId,jdbcType=BIGINT}
+)
+	</select>
+
+
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from evaluation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from evaluation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.xnk.service.api.model.Evaluation">
+    insert into evaluation (id, user_id, user_name, evaluation_user_img,recomm_write_seq_num,
+      evaluation_shoe_type, postion, half_court, 
+      stack_no_ball_state, dribble_use, shang_lan_use, 
+      tou_lan_use, attack, defend, 
+      nut_cap, basketball_play, gender, 
+      age, height, weight, 
+      foot_type, foot_img_url, bound_img_url, 
+      bound_type, instep_type, instep_img_url, 
+      bound_feet_file_id, foot_type_file_id, instep_file_id, 
+      physical_function, physical_function_file_id, 
+      shoe_type, shoe_type_id, brand_name, 
+      brand_id, shoe_name, shoe_id, color_name, color_id, size,
+      is_partial_code, is_partial_id, shoe_size_name, 
+      shoe_size_id, sock_type, sock_type_id, 
+      field_type, field_type_id, first_foot_feel_content, 
+      after_use_foot_feel_content, appreance_level, 
+      appreance_img_url, appreance_shoe_evaluate, 
+      appreance_color_evaluate, appreance_influence, 
+      work_level, work_img_url, work_feng_xian, 
+      work_jiao_shui, package_level, package_img_url, 
+      package_first, package_middle, package_after, 
+      zhi_cheng_level, zhi_cheng_img_url, zhi_cheng_mian_first, 
+      zhi_cheng_mian_middle, zhi_cheng_mian_after, 
+      zhi_cheng_bottom_first, zhi_cheng_bottom_middle, 
+      zhi_cheng_bottom_after, flex_level, flex_img_url, 
+      flex_shoe_mian_bottom, flex_shoe_mian, flex_shoe_bottom, 
+      touqi_level, touqi_img_url, touqi_content, 
+      zhuadili_level, zhuadili_img_url, zhuadili_content, 
+      naimo_level, naimo_img_url, naimo_content, 
+      huanzhen_level, huanzhen_img_url, huanzhen_content, 
+      huanzhen_first, huanzhen_after, summary, 
+      summary_img_url, evaluation_img_url, title, 
+      introduction, evaluation_date, status, 
+      order_num, recomm_num, hot_num, 
+      remark, create_date, modify_date, foot_feel_comment_num, foot_feel_good_num, 
+      appreance_comment_num, appreance_good_num, 
+      work_comment_num, work_good_num, package_comment_num, 
+      package_good_num, zhi_cheng_comment_num, zhi_cheng_good_num, 
+      flex_comment_num, flex_good_num, touqi_comment_num, 
+      touqi_good_num, zhuadili_comment_num, zhuadili_good_num, 
+      naimo_comment_num, naimo_good_num, huanzhen_comment_num, 
+      huanzhen_good_num, zhuijia_num
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
+      #{evaluationUserImg,jdbcType=VARCHAR}, 
+      #{recommWriteSeqNum,jdbcType=INTEGER}, 
+      #{evaluationShoeType,jdbcType=VARCHAR}, #{postion,jdbcType=VARCHAR}, #{halfCourt,jdbcType=VARCHAR}, 
+      #{stackNoBallState,jdbcType=VARCHAR}, #{dribbleUse,jdbcType=VARCHAR}, #{shangLanUse,jdbcType=VARCHAR}, 
+      #{touLanUse,jdbcType=VARCHAR}, #{attack,jdbcType=VARCHAR}, #{defend,jdbcType=VARCHAR}, 
+      #{nutCap,jdbcType=VARCHAR}, #{basketballPlay,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{age,jdbcType=INTEGER}, #{height,jdbcType=DOUBLE}, #{weight,jdbcType=INTEGER}, 
+      #{footType,jdbcType=VARCHAR}, #{footImgUrl,jdbcType=VARCHAR}, #{boundImgUrl,jdbcType=VARCHAR}, 
+      #{boundType,jdbcType=VARCHAR}, #{instepType,jdbcType=VARCHAR}, #{instepImgUrl,jdbcType=VARCHAR}, 
+      #{boundFeetFileId,jdbcType=BIGINT}, #{footTypeFileId,jdbcType=BIGINT}, #{instepFileId,jdbcType=BIGINT}, 
+      #{physicalFunction,jdbcType=VARCHAR}, #{physicalFunctionFileId,jdbcType=BIGINT}, 
+      #{shoeType,jdbcType=VARCHAR}, #{shoeTypeId,jdbcType=BIGINT}, #{brandName,jdbcType=VARCHAR}, 
+      #{brandId,jdbcType=BIGINT}, #{shoeName,jdbcType=VARCHAR}, #{shoeId,jdbcType=BIGINT}, 
+      #{colorName,jdbcType=VARCHAR}, #{colorId,jdbcType=BIGINT}, #{size,jdbcType=VARCHAR},
+      #{isPartialCode,jdbcType=VARCHAR}, #{isPartialId,jdbcType=BIGINT}, #{shoeSizeName,jdbcType=VARCHAR}, 
+      #{shoeSizeId,jdbcType=BIGINT}, #{sockType,jdbcType=VARCHAR}, #{sockTypeId,jdbcType=BIGINT}, 
+      #{fieldType,jdbcType=VARCHAR}, #{fieldTypeId,jdbcType=BIGINT}, #{firstFootFeelContent,jdbcType=VARCHAR}, 
+      #{afterUseFootFeelContent,jdbcType=VARCHAR}, #{appreanceLevel,jdbcType=INTEGER}, 
+      #{appreanceImgUrl,jdbcType=VARCHAR}, #{appreanceShoeEvaluate,jdbcType=VARCHAR}, 
+      #{appreanceColorEvaluate,jdbcType=VARCHAR}, #{appreanceInfluence,jdbcType=VARCHAR}, 
+      #{workLevel,jdbcType=INTEGER}, #{workImgUrl,jdbcType=VARCHAR}, #{workFengXian,jdbcType=VARCHAR}, 
+      #{workJiaoShui,jdbcType=VARCHAR}, #{packageLevel,jdbcType=INTEGER}, #{packageImgUrl,jdbcType=VARCHAR}, 
+      #{packageFirst,jdbcType=VARCHAR}, #{packageMiddle,jdbcType=VARCHAR}, #{packageAfter,jdbcType=VARCHAR}, 
+      #{zhiChengLevel,jdbcType=INTEGER}, #{zhiChengImgUrl,jdbcType=VARCHAR}, #{zhiChengMianFirst,jdbcType=VARCHAR}, 
+      #{zhiChengMianMiddle,jdbcType=VARCHAR}, #{zhiChengMianAfter,jdbcType=VARCHAR}, 
+      #{zhiChengBottomFirst,jdbcType=VARCHAR}, #{zhiChengBottomMiddle,jdbcType=VARCHAR}, 
+      #{zhiChengBottomAfter,jdbcType=VARCHAR}, #{flexLevel,jdbcType=INTEGER}, #{flexImgUrl,jdbcType=VARCHAR}, 
+      #{flexShoeMianBottom,jdbcType=VARCHAR}, #{flexShoeMian,jdbcType=VARCHAR}, #{flexShoeBottom,jdbcType=VARCHAR}, 
+      #{touqiLevel,jdbcType=INTEGER}, #{touqiImgUrl,jdbcType=VARCHAR}, #{touqiContent,jdbcType=VARCHAR}, 
+      #{zhuadiliLevel,jdbcType=INTEGER}, #{zhuadiliImgUrl,jdbcType=VARCHAR}, #{zhuadiliContent,jdbcType=VARCHAR}, 
+      #{naimoLevel,jdbcType=INTEGER}, #{naimoImgUrl,jdbcType=VARCHAR}, #{naimoContent,jdbcType=VARCHAR}, 
+      #{huanzhenLevel,jdbcType=INTEGER}, #{huanzhenImgUrl,jdbcType=VARCHAR}, #{huanzhenContent,jdbcType=VARCHAR}, 
+      #{huanzhenFirst,jdbcType=VARCHAR}, #{huanzhenAfter,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{summaryImgUrl,jdbcType=VARCHAR}, #{evaluationImgUrl,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{evaluationDate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{orderNum,jdbcType=INTEGER}, #{recommNum,jdbcType=INTEGER}, #{hotNum,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{footFeelCommentNum,jdbcType=INTEGER}, #{footFeelGoodNum,jdbcType=INTEGER}, 
+      #{appreanceCommentNum,jdbcType=INTEGER}, #{appreanceGoodNum,jdbcType=INTEGER}, 
+      #{workCommentNum,jdbcType=INTEGER}, #{workGoodNum,jdbcType=INTEGER}, #{packageCommentNum,jdbcType=INTEGER}, 
+      #{packageGoodNum,jdbcType=INTEGER}, #{zhiChengCommentNum,jdbcType=INTEGER}, #{zhiChengGoodNum,jdbcType=INTEGER}, 
+      #{flexCommentNum,jdbcType=INTEGER}, #{flexGoodNum,jdbcType=INTEGER}, #{touqiCommentNum,jdbcType=INTEGER}, 
+      #{touqiGoodNum,jdbcType=INTEGER}, #{zhuadiliCommentNum,jdbcType=INTEGER}, #{zhuadiliGoodNum,jdbcType=INTEGER}, 
+      #{naimoCommentNum,jdbcType=INTEGER}, #{naimoGoodNum,jdbcType=INTEGER}, #{huanzhenCommentNum,jdbcType=INTEGER}, 
+      #{huanzhenGoodNum,jdbcType=INTEGER}, #{zhuijiaNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="update" parameterType="com.xnk.service.api.model.Evaluation">
+    update evaluation
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationUserImg != null">
+        evaluation_user_img = #{evaluationUserImg,jdbcType=VARCHAR},
+      </if>
+      <if test="recommWriteSeqNum != null">
+        recomm_write_seq_num = #{recommWriteSeqNum,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationShoeType != null">
+        evaluation_shoe_type = #{evaluationShoeType,jdbcType=VARCHAR},
+      </if>
+      <if test="postion != null">
+        postion = #{postion,jdbcType=VARCHAR},
+      </if>
+      <if test="halfCourt != null">
+        half_court = #{halfCourt,jdbcType=VARCHAR},
+      </if>
+      <if test="stackNoBallState != null">
+        stack_no_ball_state = #{stackNoBallState,jdbcType=VARCHAR},
+      </if>
+      <if test="dribbleUse != null">
+        dribble_use = #{dribbleUse,jdbcType=VARCHAR},
+      </if>
+      <if test="shangLanUse != null">
+        shang_lan_use = #{shangLanUse,jdbcType=VARCHAR},
+      </if>
+      <if test="touLanUse != null">
+        tou_lan_use = #{touLanUse,jdbcType=VARCHAR},
+      </if>
+      <if test="attack != null">
+        attack = #{attack,jdbcType=VARCHAR},
+      </if>
+      <if test="defend != null">
+        defend = #{defend,jdbcType=VARCHAR},
+      </if>
+      <if test="nutCap != null">
+        nut_cap = #{nutCap,jdbcType=VARCHAR},
+      </if>
+      <if test="basketballPlay != null">
+        basketball_play = #{basketballPlay,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="footType != null">
+        foot_type = #{footType,jdbcType=VARCHAR},
+      </if>
+      <if test="footImgUrl != null">
+        foot_img_url = #{footImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="boundImgUrl != null">
+        bound_img_url = #{boundImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="boundType != null">
+        bound_type = #{boundType,jdbcType=VARCHAR},
+      </if>
+      <if test="instepType != null">
+        instep_type = #{instepType,jdbcType=VARCHAR},
+      </if>
+      <if test="instepImgUrl != null">
+        instep_img_url = #{instepImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="boundFeetFileId != null">
+        bound_feet_file_id = #{boundFeetFileId,jdbcType=BIGINT},
+      </if>
+      <if test="footTypeFileId != null">
+        foot_type_file_id = #{footTypeFileId,jdbcType=BIGINT},
+      </if>
+      <if test="instepFileId != null">
+        instep_file_id = #{instepFileId,jdbcType=BIGINT},
+      </if>
+      <if test="physicalFunction != null">
+        physical_function = #{physicalFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalFunctionFileId != null">
+        physical_function_file_id = #{physicalFunctionFileId,jdbcType=BIGINT},
+      </if>
+      <if test="shoeType != null">
+        shoe_type = #{shoeType,jdbcType=VARCHAR},
+      </if>
+      <if test="shoeTypeId != null">
+        shoe_type_id = #{shoeTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="brandName != null">
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="shoeName != null">
+        shoe_name = #{shoeName,jdbcType=VARCHAR},
+      </if>
+      <if test="shoeId != null">
+        shoe_id = #{shoeId,jdbcType=BIGINT},
+      </if>
+      <if test="colorName != null">
+        color_name = #{colorName,jdbcType=VARCHAR},
+      </if>
+      <if test="colorId != null">
+        color_id = #{colorId,jdbcType=BIGINT},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="isPartialCode != null">
+        is_partial_code = #{isPartialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isPartialId != null">
+        is_partial_id = #{isPartialId,jdbcType=BIGINT},
+      </if>
+      <if test="shoeSizeName != null">
+        shoe_size_name = #{shoeSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="shoeSizeId != null">
+        shoe_size_id = #{shoeSizeId,jdbcType=BIGINT},
+      </if>
+      <if test="sockType != null">
+        sock_type = #{sockType,jdbcType=VARCHAR},
+      </if>
+      <if test="sockTypeId != null">
+        sock_type_id = #{sockTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="fieldType != null">
+        field_type = #{fieldType,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldTypeId != null">
+        field_type_id = #{fieldTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="firstFootFeelContent != null">
+        first_foot_feel_content = #{firstFootFeelContent,jdbcType=VARCHAR},
+      </if>
+      <if test="afterUseFootFeelContent != null">
+        after_use_foot_feel_content = #{afterUseFootFeelContent,jdbcType=VARCHAR},
+      </if>
+      <if test="appreanceLevel != null">
+        appreance_level = #{appreanceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="appreanceImgUrl != null">
+        appreance_img_url = #{appreanceImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="appreanceShoeEvaluate != null">
+        appreance_shoe_evaluate = #{appreanceShoeEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="appreanceColorEvaluate != null">
+        appreance_color_evaluate = #{appreanceColorEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="appreanceInfluence != null">
+        appreance_influence = #{appreanceInfluence,jdbcType=VARCHAR},
+      </if>
+      <if test="workLevel != null">
+        work_level = #{workLevel,jdbcType=INTEGER},
+      </if>
+      <if test="workImgUrl != null">
+        work_img_url = #{workImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="workFengXian != null">
+        work_feng_xian = #{workFengXian,jdbcType=VARCHAR},
+      </if>
+      <if test="workJiaoShui != null">
+        work_jiao_shui = #{workJiaoShui,jdbcType=VARCHAR},
+      </if>
+      <if test="packageLevel != null">
+        package_level = #{packageLevel,jdbcType=INTEGER},
+      </if>
+      <if test="packageImgUrl != null">
+        package_img_url = #{packageImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="packageFirst != null">
+        package_first = #{packageFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="packageMiddle != null">
+        package_middle = #{packageMiddle,jdbcType=VARCHAR},
+      </if>
+      <if test="packageAfter != null">
+        package_after = #{packageAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="zhiChengLevel != null">
+        zhi_cheng_level = #{zhiChengLevel,jdbcType=INTEGER},
+      </if>
+      <if test="zhiChengImgUrl != null">
+        zhi_cheng_img_url = #{zhiChengImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="zhiChengMianFirst != null">
+        zhi_cheng_mian_first = #{zhiChengMianFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="zhiChengMianMiddle != null">
+        zhi_cheng_mian_middle = #{zhiChengMianMiddle,jdbcType=VARCHAR},
+      </if>
+      <if test="zhiChengMianAfter != null">
+        zhi_cheng_mian_after = #{zhiChengMianAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="zhiChengBottomFirst != null">
+        zhi_cheng_bottom_first = #{zhiChengBottomFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="zhiChengBottomMiddle != null">
+        zhi_cheng_bottom_middle = #{zhiChengBottomMiddle,jdbcType=VARCHAR},
+      </if>
+      <if test="zhiChengBottomAfter != null">
+        zhi_cheng_bottom_after = #{zhiChengBottomAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="flexLevel != null">
+        flex_level = #{flexLevel,jdbcType=INTEGER},
+      </if>
+      <if test="flexImgUrl != null">
+        flex_img_url = #{flexImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="flexShoeMianBottom != null">
+        flex_shoe_mian_bottom = #{flexShoeMianBottom,jdbcType=VARCHAR},
+      </if>
+      <if test="flexShoeMian != null">
+        flex_shoe_mian = #{flexShoeMian,jdbcType=VARCHAR},
+      </if>
+      <if test="flexShoeBottom != null">
+        flex_shoe_bottom = #{flexShoeBottom,jdbcType=VARCHAR},
+      </if>
+      <if test="touqiLevel != null">
+        touqi_level = #{touqiLevel,jdbcType=INTEGER},
+      </if>
+      <if test="touqiImgUrl != null">
+        touqi_img_url = #{touqiImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="touqiContent != null">
+        touqi_content = #{touqiContent,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuadiliLevel != null">
+        zhuadili_level = #{zhuadiliLevel,jdbcType=INTEGER},
+      </if>
+      <if test="zhuadiliImgUrl != null">
+        zhuadili_img_url = #{zhuadiliImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuadiliContent != null">
+        zhuadili_content = #{zhuadiliContent,jdbcType=VARCHAR},
+      </if>
+      <if test="naimoLevel != null">
+        naimo_level = #{naimoLevel,jdbcType=INTEGER},
+      </if>
+      <if test="naimoImgUrl != null">
+        naimo_img_url = #{naimoImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="naimoContent != null">
+        naimo_content = #{naimoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="huanzhenLevel != null">
+        huanzhen_level = #{huanzhenLevel,jdbcType=INTEGER},
+      </if>
+      <if test="huanzhenImgUrl != null">
+        huanzhen_img_url = #{huanzhenImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="huanzhenContent != null">
+        huanzhen_content = #{huanzhenContent,jdbcType=VARCHAR},
+      </if>
+      <if test="huanzhenFirst != null">
+        huanzhen_first = #{huanzhenFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="huanzhenAfter != null">
+        huanzhen_after = #{huanzhenAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryImgUrl != null">
+        summary_img_url = #{summaryImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationImgUrl != null">
+        evaluation_img_url = #{evaluationImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationDate != null">
+        evaluation_date = #{evaluationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="recommNum != null">
+        recomm_num = #{recommNum,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        hot_num = #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="footFeelCommentNum != null">
+        foot_feel_comment_num = #{footFeelCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="footFeelGoodNum != null">
+        foot_feel_good_num = #{footFeelGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="appreanceCommentNum != null">
+        appreance_comment_num = #{appreanceCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="appreanceGoodNum != null">
+        appreance_good_num = #{appreanceGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="workCommentNum != null">
+        work_comment_num = #{workCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="workGoodNum != null">
+        work_good_num = #{workGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="packageCommentNum != null">
+        package_comment_num = #{packageCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="packageGoodNum != null">
+        package_good_num = #{packageGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="zhiChengCommentNum != null">
+        zhi_cheng_comment_num = #{zhiChengCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="zhiChengGoodNum != null">
+        zhi_cheng_good_num = #{zhiChengGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="flexCommentNum != null">
+        flex_comment_num = #{flexCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="flexGoodNum != null">
+        flex_good_num = #{flexGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="touqiCommentNum != null">
+        touqi_comment_num = #{touqiCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="touqiGoodNum != null">
+        touqi_good_num = #{touqiGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="zhuadiliCommentNum != null">
+        zhuadili_comment_num = #{zhuadiliCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="zhuadiliGoodNum != null">
+        zhuadili_good_num = #{zhuadiliGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="naimoCommentNum != null">
+        naimo_comment_num = #{naimoCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="naimoGoodNum != null">
+        naimo_good_num = #{naimoGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="huanzhenCommentNum != null">
+        huanzhen_comment_num = #{huanzhenCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="huanzhenGoodNum != null">
+        huanzhen_good_num = #{huanzhenGoodNum,jdbcType=INTEGER},
+      </if>
+      <if test="zhuijiaNum != null">
+        zhuijia_num = #{zhuijiaNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

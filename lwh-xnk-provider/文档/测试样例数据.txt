@@ -1,0 +1,10 @@
+
+//注册登录  http://localhost:8655/login?user={"nickName":"test1117","avatarUrl":"www.bai","sex":1}&code=32&openid=xfs9321&nickName=test32&avatarUrl=www.rul&sex=1
+
+
+	nickName = userObj.getString("nickName");
+				avatarUrl = userObj.getString("avatarUrl");
+				sex = userObj.getString("gender");
+				
+				
+				
