@@ -428,6 +428,7 @@ public class EvaluationController {
 						dv.setHotNum(evaluation.getHotNum());
 						dv.setRemark(evaluation.getRemark());
 						dv.setIsBuy(0);
+						dv.setEvaluationUserImg(evaluation.getEvaluationUserImg());
 						return RestResult.restResult(result, dv);
 					}
 					evaluation.setIsBuy(1);

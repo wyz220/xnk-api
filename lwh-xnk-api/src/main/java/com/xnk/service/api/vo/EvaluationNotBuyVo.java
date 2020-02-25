@@ -22,6 +22,8 @@ public class EvaluationNotBuyVo extends Entity<Long, EvaluationNotBuyVo> {
 
 	private String userName;
 
+	private String evaluationUserImg;//发布测评用户头像
+
 	private String evaluationImgUrl;
 
 	private String title;
@@ -176,5 +178,11 @@ public class EvaluationNotBuyVo extends Entity<Long, EvaluationNotBuyVo> {
 		this.modifyDate = modifyDate;
 	}
 
-	
+	public String getEvaluationUserImg() {
+		return evaluationUserImg;
+	}
+
+	public void setEvaluationUserImg(String evaluationUserImg) {
+		this.evaluationUserImg = evaluationUserImg;
+	}
 }

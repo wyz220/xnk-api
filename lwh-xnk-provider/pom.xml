@@ -150,139 +150,32 @@
 
 
 	<build>
-		<resources>
-			<resource>
-				<targetPath>${project.build.directory}/</targetPath>
-				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/*.xml</include>
-					<include>**/*.yml</include>
-					<include>**/*.properties</include>
-				</includes>
-			</resource>
-			<resource>
-				<targetPath>${project.build.directory}/classes</targetPath>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/*.*</include>
-				</includes>
-			</resource>
-		</resources>
-		
 		<plugins>
-		    <!-- <plugin>spring热部署   发布待删
+			<!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>1.2.8.RELEASE</version>
-                    </dependency>
-                </dependencies>
-            </plugin> -->
-			<!-- <plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>appassembler-maven-plugin</artifactId>
-				<version>2.0.0</version>
-				<configuration>
-					<repositoryLayout>flat</repositoryLayout>
-					<repositoryName>lib</repositoryName>
-					<configurationSourceDirectory>src/main/resources/</configurationSourceDirectory>
-					Set the target configuration directory to be used in the bin scripts
-					<configurationDirectory>conf</configurationDirectory>
-					Copy the contents from &quot;/src/main/config&quot; to the target configuration
-                    directory in the assembled application
-					<copyConfigurationDirectory>true</copyConfigurationDirectory>
-					Include the target configuration directory in the beginning of
-                        the classpath declaration in the bin scripts
-					<includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-					prefix all bin files with &quot;mycompany&quot;
-					<binPrefix>startup</binPrefix>
-					set alternative assemble directory
-					<assembleDirectory>${project.build.directory}/server</assembleDirectory>
-					Extra JVM arguments that will be included in the bin scripts 
-					<extraJvmArguments>-Xms128m -Xmx512m -XX:PermSize=128m
-						-XX:MaxPermSize=64m -XX:NewSize=128m -XX:MaxNewSize=128m
-					</extraJvmArguments>
-					
-					test
-					<extraJvmArguments>-Xms32m -Xmx64m
-					</extraJvmArguments>
-					
-					Generate bin scripts for windows and unix pr default
-					<platforms>
-						<platform>windows</platform>
-						<platform>unix</platform>
-					</platforms>
-					<programs>
-						<program>
-							<mainClass>com.xnk.service.provider.XnkApplication</mainClass>
-							<name>startup</name>
-						</program>
-					</programs>
-				</configuration>
-			</plugin> -->
+            </plugin>-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
 				<configuration>
-					<classesDirectory>target/classes/</classesDirectory>
-					<archive>
-						<manifest>
-							<mainClass>com.xnk.service.provider.XnkApplication</mainClass>
-							<!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
-							<useUniqueVersions>false</useUniqueVersions>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib/</classpathPrefix>
-						</manifest>
-						<manifestEntries>
-							<Class-Path>.</Class-Path>
-						</manifestEntries>
-					</archive>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
-			
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-dependencies</id>
-						<phase>package</phase>
 						<goals>
-							<goal>copy-dependencies</goal>
+							<goal>repackage</goal>
 						</goals>
-						<configuration>
-							<type>jar</type>
-							<includeTypes>jar</includeTypes>
-							<useUniqueVersions>false</useUniqueVersions>
-							<outputDirectory>
-								${project.build.directory}/lib
-							</outputDirectory>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<!-- 过滤后缀为pem、pfx的证书文件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<nonFilteredFileExtensions>
-						<nonFilteredFileExtension>pem</nonFilteredFileExtension>
-						<nonFilteredFileExtension>pfx</nonFilteredFileExtension>
-						<nonFilteredFileExtension>p12</nonFilteredFileExtension>
-						<nonFilteredFileExtension>P12</nonFilteredFileExtension>
-						<nonFilteredFileExtension>cer</nonFilteredFileExtension>
-						<nonFilteredFileExtension>crt</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-				</configuration>
-			</plugin>
+
 		</plugins>
-	
 	</build>
 </project>
