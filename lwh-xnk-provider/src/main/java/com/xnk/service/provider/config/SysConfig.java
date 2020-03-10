@@ -143,11 +143,11 @@ public class SysConfig {
 		nutCapMap.put(0, "经常有盖帽表现");
 		nutCapMap.put(1, "不怎么盖帽");
 
-		footMap.put(0, "正常足");
-		footMap.put(1, "前掌宽");
-		footMap.put(2, "前掌很宽");
-		footMap.put(3, "前掌窄");
-		footMap.put(4, "前掌很窄");
+		footMap.put(0, "正常足#前掌比正常宽度很多");
+		footMap.put(1, "前掌宽#前掌比正常宽度");
+		footMap.put(2, "前掌很宽#前掌正常宽度");
+		footMap.put(3, "前掌窄#前掌比正常宽度窄");
+		footMap.put(4, "前掌很窄#前掌比正常宽度窄很多");
 
 		boundMap.put(0, "正常足");
 		boundMap.put(1, "高足弓");
