@@ -1,5 +1,6 @@
 package com.xnk.service.provider.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class UserController {
 	@Autowired
 	private FollowUserService followUserService;
 	
-	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	@ApiOperation(value = "用户已购测评查询", notes = "用户已购测评查询", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "userId", value = "用户标识 userId", paramType = "query", required = false, dataType = "long")
@@ -194,10 +195,12 @@ public class UserController {
 	@ApiOperation(value = "用户测评查询", notes = "用户测评查询", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "userId", value = "用户标识 userId", paramType = "query", required = false, dataType = "long")
-	       })
+	       ,@ApiImplicitParam(name = "pageNo", value = "pageNo", paramType = "query", required = false, dataType = "integer")
+	})
 	@RequestMapping(value = "userEvaluationList")
 	public Map<String, Object> userEvaluationList(HttpServletRequest request,
 			@RequestParam(value="userId",required=false) Long userId,
+			@RequestParam(value="pageNo",required=true) Integer pageNo,
 			HttpServletResponse response
 			) throws Exception {
 		ResultInfo result = new ResultInfo();
@@ -208,11 +211,14 @@ public class UserController {
 			
 			Evaluation evaluation = new Evaluation();
 			evaluation.setUserId(userId);
-			List<Evaluation> list = this.evaluationService.list(evaluation);
-			
-            List<EvaluationNotBuyVo> listVo = new ArrayList<EvaluationNotBuyVo>();
-			
-			for(Evaluation  d : list){
+			Page<Evaluation> page = new Page<Evaluation>();
+			page.setPageNo(pageNo);
+			evaluation.setPage(page);
+			Page<Evaluation> list = this.evaluationService.page(evaluation);
+
+			Page<EvaluationNotBuyVo> listVo = new Page<EvaluationNotBuyVo>();
+			List<EvaluationNotBuyVo> listdata = listVo.getList();
+			for(Evaluation  d : list.getList()){
 				EvaluationNotBuyVo dv = new EvaluationNotBuyVo();
 				dv.setId(d.getId());
 				dv.setUserId(d.getUserId());
@@ -226,9 +232,11 @@ public class UserController {
 				dv.setRecommWriteSeqNum(d.getRecommWriteSeqNum());
 				dv.setHotNum(d.getHotNum());
 				dv.setRemark(d.getRemark());
-				listVo.add(dv);
+				listdata.add(dv);
 			}
-			
+			listVo.setCount(list.getCount());
+			listVo.setPageNo(list.getPageNo());
+			listVo.setList(listdata);
 			return RestResult.restResult(result, listVo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -315,5 +323,37 @@ public class UserController {
 		
 	}
 
-	
+	@ApiOperation(value = "用户信息更新", notes = "用户信息更新", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
+	@ApiImplicitParams({
+					@ApiImplicitParam(name = "id", value = "用户标识userid", paramType = "query", required = true, dataType = "long")
+					,@ApiImplicitParam(name = "userName", value = "用户名称", paramType = "query", required = false, dataType = "string")
+					,@ApiImplicitParam(name = "nickName", value = "用户昵称", paramType = "query", required = false, dataType = "string")
+					,@ApiImplicitParam(name = "birthdayed", value = "生日 yyyy-MM-dd", paramType = "query", required = false, dataType = "string")
+					,@ApiImplicitParam(name = "address", value = "地址", paramType = "query", required = false, dataType = "string")
+					,@ApiImplicitParam(name = "cityId", value = "城市代码", paramType = "query", required = false, dataType = "string")
+					,@ApiImplicitParam(name = "introduction", value = "签名、介绍", paramType = "query", required = false, dataType = "string")
+	})
+	@RequestMapping(value = "update")
+	public Map<String, Object> update(HttpServletRequest request,
+								   HttpServletResponse response,
+									  @RequestParam(value="birthdayed",required=false) String birthdayed,
+														  User user
+	) throws Exception {
+		ResultInfo result = new ResultInfo();
+		result.setCode(ResultCode.SUCCESS.getCode());
+		result.setMessage(ResultCode.SUCCESS.getMessage());
+
+		try {
+			if(null != birthdayed){
+				user.setBirthday(sdf.parse(birthdayed));
+			}
+			this.userService.update(user);
+			return RestResult.restResult(result, null);
+		} catch (Exception e) {
+			result.setCode(ResultCode.FAILED.getCode());
+			result.setMessage(ResultCode.FAILED.getMessage());
+			return RestResult.restResult(result, null);
+		}
+
+	}
 }

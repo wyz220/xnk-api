@@ -6,9 +6,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.xnk.service.provider.properties.FastdfsProperties;
 import org.csource.common.NameValuePair;
 import org.csource.fastdfs.ClientGlobal;
 import org.csource.fastdfs.StorageClient1;
@@ -17,6 +19,7 @@ import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,11 +35,22 @@ public class FastDFSClient {
    private static TrackerServer trackerServer = null;
    private static StorageServer storageServer = null;
    private static StorageClient1 storageClient = null;
-   
+
+   private static Properties prop = new Properties();
+
+   private static FastdfsProperties  fdfsProp = new FastdfsProperties();
+
    static {
        try {
-           String filePath = new ClassPathResource("fdfs_client.conf").getFile().getAbsolutePath();;
-           ClientGlobal.init(filePath);
+		   prop.put("fastdfs.connect_timeout_in_seconds", fdfsProp.getConnectTimeout());
+prop.put("fastdfs.network_timeout_in_seconds", fdfsProp.getNetworkTimeout());
+prop.put("fastdfs.charset", fdfsProp.getCharset());
+prop.put("fastdfs.http_anti_steal_token", fdfsProp.getAntiStealToken());
+prop.put("fastdfs.http_secret_key", fdfsProp.getHttpSecretKey());
+prop.put("fastdfs.http_tracker_http_port", fdfsProp.getHttpTrackerHttpPort());
+prop.put("fastdfs.tracker_servers", fdfsProp.getTrackerServer());
+ClientGlobal.initByProperties(prop);
+
            trackerClient = new TrackerClient();
            trackerServer = trackerClient.getConnection();
            storageServer = null;
@@ -90,6 +104,7 @@ public class FastDFSClient {
       
       String result = "";
       try{
+      	logger.info("storageClient=>"+storageClient+",fileContent=>"+fileContent);
     	  result = storageClient.upload_file1(fileContent, extName, metas);
       }catch(Exception e){
     	  result = storageClient.upload_file1(fileContent, extName, metas);

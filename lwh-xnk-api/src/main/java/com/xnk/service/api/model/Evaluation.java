@@ -11,7 +11,7 @@ import com.xnk.service.entity.Entity;
  */
 public class Evaluation extends Entity<Long, Evaluation> {
 
-	/**
+	/**age
 	 * 
 	 */
 	private static final long serialVersionUID = -8319208287159835265L;
@@ -113,6 +113,8 @@ public class Evaluation extends Entity<Long, Evaluation> {
 	private String firstFootFeelContent;
 
 	private String afterUseFootFeelContent;
+
+	private String footFeelImgUrl;
 
 	private Integer appreanceLevel;
 
@@ -1287,5 +1289,12 @@ public class Evaluation extends Entity<Long, Evaluation> {
 	public void setSize(String size) {
 		this.size = size;
 	}
-	
+
+	public String getFootFeelImgUrl() {
+		return footFeelImgUrl;
+	}
+
+	public void setFootFeelImgUrl(String footFeelImgUrl) {
+		this.footFeelImgUrl = footFeelImgUrl;
+	}
 }

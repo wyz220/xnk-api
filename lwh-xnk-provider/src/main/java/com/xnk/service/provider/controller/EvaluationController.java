@@ -135,7 +135,9 @@ public class EvaluationController {
 	@ApiOperation(value = "测评更新", notes = "测评更新", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "evaluationId", value = "测评标识evaluationId", paramType = "query", required = true, dataType = "long")
-			,@ApiImplicitParam(name = "introduction", value = "简介", paramType = "query", required = false, dataType = "string")
+			,@ApiImplicitParam(name = "status", value = "发布测评状态传0", paramType = "query", required = true, dataType = "integer")
+			,@ApiImplicitParam(name = "userName", value = "用户名称", paramType = "query", required = true, dataType = "string")
+            ,@ApiImplicitParam(name = "introduction", value = "简介", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "evaluationShoeType", value = "测评鞋类型  篮球鞋/跑鞋", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "postion", value = "篮球场上位置", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "halfCourt", value = "全场多还是半场多 单选", paramType = "query", required = false, dataType = "string")
@@ -147,7 +149,6 @@ public class EvaluationController {
 			,@ApiImplicitParam(name = "defend", value = "关于篮板", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "nutCap", value = "关于盖帽", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "basketballPlay", value = "篮球打法描述", paramType = "query", required = false, dataType = "string")
-			
 			,@ApiImplicitParam(name = "gender", value = "性别", paramType = "query", required = false, dataType = "integer")
 			,@ApiImplicitParam(name = "age", value = "年龄", paramType = "query", required = false, dataType = "integer")
 			,@ApiImplicitParam(name = "height", value = "身高", paramType = "query", required = false, dataType = "double")
@@ -163,7 +164,6 @@ public class EvaluationController {
 			,@ApiImplicitParam(name = "instepFileId", value = "脚背标识", paramType = "query", required = false, dataType = "long")
 			,@ApiImplicitParam(name = "physicalFunction", value = "身体机能", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "physicalFunctionFileId", value = "身体机能标识", paramType = "query", required = false, dataType = "long")
-			
 			,@ApiImplicitParam(name = "shoeType", value = "鞋类型", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "shoeTypeId", value = "鞋类型标识 1-篮球鞋 2-跑鞋", paramType = "query", required = false, dataType = "long")
 			,@ApiImplicitParam(name = "brandName", value = "品牌名称", paramType = "query", required = false, dataType = "string")
@@ -180,7 +180,6 @@ public class EvaluationController {
 			,@ApiImplicitParam(name = "sockTypeId", value = "袜子标识", paramType = "query", required = false, dataType = "long")
 			,@ApiImplicitParam(name = "fieldType", value = "篮球场地", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "fieldTypeId", value = "篮球场地标识", paramType = "query", required = false, dataType = "long")
-			
 			,@ApiImplicitParam(name = "title", value = "标题", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "evaluationImgUrl", value = "测评封面图", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "summary", value = "总结", paramType = "query", required = false, dataType = "string")
@@ -222,7 +221,8 @@ public class EvaluationController {
 			,@ApiImplicitParam(name = "workJiaoShui", value = "做工胶水", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "firstFootFeelContent", value = "第一次穿着脚感描述", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "afterUseFootFeelContent", value = "脚感所用时间和磨合后的描述", paramType = "query", required = false, dataType = "string")
-			,@ApiImplicitParam(name = "appreanceLevel", value = "外观五星评价 1很差 2差 3一般 4好 5很好", paramType = "query", required = false, dataType = "integer")
+					,@ApiImplicitParam(name = "footFeelImgUrl", value = "脚感磨合图片", paramType = "query", required = false, dataType = "string")
+					,@ApiImplicitParam(name = "appreanceLevel", value = "外观五星评价 1很差 2差 3一般 4好 5很好", paramType = "query", required = false, dataType = "integer")
 			,@ApiImplicitParam(name = "appreanceImgUrl", value = "外观图片", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "appreanceShoeEvaluate", value = "外观鞋评价", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "appreanceColorEvaluate", value = "外观配色评价", paramType = "query", required = false, dataType = "string")
@@ -342,7 +342,7 @@ public class EvaluationController {
 			
 			this.service.update(ev);
 			
-			return RestResult.restResult(result, ev);
+			return RestResult.restResult(result, null);
 		} catch (Exception e) {
 			log.error("更新测评异常",e);
 			result.setCode(ResultCode.FAILED.getCode());

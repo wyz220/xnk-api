@@ -140,7 +140,13 @@ public class CommonController {
 			Entry<Integer, String> next = iterator.next();
 			common.setId(next.getKey().toString()
 					);
-			common.setName(next.getValue());
+			if(next.getValue().contains("#")){
+				common.setName(next.getValue().split("#")[0]);
+				common.setDesc(next.getValue().split("#")[1]);
+			}else{
+				common.setName(next.getValue());
+			}
+
 			list.add(common);
 		}
 		

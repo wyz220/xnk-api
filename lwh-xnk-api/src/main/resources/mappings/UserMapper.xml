@@ -125,7 +125,7 @@
 		parameterType="Long">
 		SELECT a.*,b.* from wx_user a LEFT JOIN wx_user_total b on a.id =
 		b.user_id
-		where id in
+		where a.id in
 		<foreach collection="array" index="index" item="item" open="("
 			separator="," close=")">
 			#{item}

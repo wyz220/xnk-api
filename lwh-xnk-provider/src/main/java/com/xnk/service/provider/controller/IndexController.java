@@ -95,7 +95,11 @@ public class IndexController {
 			
 			dataMap.put("user_id", u.getId());
 			dataMap.put("openid", u.getOpenid());
-			
+			dataMap.put("userName", u.getName());
+			dataMap.put("nickName", nickName);
+			dataMap.put("sex", u.getSex());
+			dataMap.put("address", u.getAddress());
+
 			return RestResult.restResult(result, dataMap);
 			
 		} catch (Exception e) {

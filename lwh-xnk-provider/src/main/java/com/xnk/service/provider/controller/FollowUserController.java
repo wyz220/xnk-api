@@ -1,5 +1,6 @@
 package com.xnk.service.provider.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -99,6 +100,9 @@ public class FollowUserController {
 				}else{
 					ids[count++] = fu.getFollowUserId();//我的关注
 				}
+			}
+			if(ids.length == 0){
+				return RestResult.restResult(result, new ArrayList<UserVo>());
 			}
 			List<UserVo> uservos = userService.listByIds(ids);
 			return RestResult.restResult(result, uservos);

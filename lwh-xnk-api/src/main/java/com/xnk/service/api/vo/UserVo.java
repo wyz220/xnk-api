@@ -61,8 +61,18 @@ public class UserVo {
     private Integer myFollowShoeCount;//关注的鞋数量
 
     private Integer myFollowColorCount;//关注的配色
-    
+
+	private Date updateTime;
+
     public UserVo(){}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 
 	public Long getId() {
 		return id;
