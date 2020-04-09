@@ -50,6 +50,8 @@ public class Evaluation extends Entity<Long, Evaluation> {
 
 	private Integer age;
 
+	private Date birthday;
+
 	private Double height;
 
 	private Integer weight;
@@ -271,8 +273,15 @@ public class Evaluation extends Entity<Long, Evaluation> {
 	private Integer isBuy;//1已购买 0未购买
 	
 	private Integer isNeed;//是否想买 1想买 
-	
-	
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
 	public String getEvaluationUserImg() {
 		return evaluationUserImg;
 	}

@@ -1,5 +1,6 @@
 package com.xnk.service.provider.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -45,6 +46,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 @Api(description="测评接口")
 @RestController
@@ -69,7 +71,8 @@ public class EvaluationController {
 	
 	@Autowired
 	private UserTotalService userTotalService;
-	
+
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Autowired
 	private EvaluationWriteRecomTotalService evaluationWriteRecomTotalService;
@@ -151,9 +154,11 @@ public class EvaluationController {
 			,@ApiImplicitParam(name = "basketballPlay", value = "篮球打法描述", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "gender", value = "性别", paramType = "query", required = false, dataType = "integer")
 			,@ApiImplicitParam(name = "age", value = "年龄", paramType = "query", required = false, dataType = "integer")
-			,@ApiImplicitParam(name = "height", value = "身高", paramType = "query", required = false, dataType = "double")
+					,@ApiImplicitParam(name = "birthdayed", value = "出生日期 yyyy-MM-dd", paramType = "query", required = false, dataType = "integer"),
+					@ApiImplicitParam(name = "height", value = "身高", paramType = "query", required = false, dataType = "double")
 			,@ApiImplicitParam(name = "weight", value = "体重", paramType = "query", required = false, dataType = "integer")
 			,@ApiImplicitParam(name = "footType", value = "脚形", paramType = "query", required = false, dataType = "string")
+					,@ApiImplicitParam(name = "size", value = "尺码大小", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "footTypeFileId", value = "脚形标识", paramType = "query", required = false, dataType = "long")
 			,@ApiImplicitParam(name = "footImgUrl", value = "脚形", paramType = "query", required = false, dataType = "string")
 			,@ApiImplicitParam(name = "boundImgUrl", value = "足弓", paramType = "query", required = false, dataType = "string")
@@ -233,10 +238,10 @@ public class EvaluationController {
 	public Map<String, Object> update(HttpServletRequest request, 
 			HttpServletResponse response,
 			@RequestParam(value = "evaluationId", required = true) Long evaluationId, 
-			Evaluation ev
-			/*
-			@RequestParam(value = "gender", required = false) String gender,
-			@RequestParam(value = "age", required = false) String age,
+			Evaluation ev,
+
+			@RequestParam(value = "birthdayed", required = false) String birthdayed
+			/*@RequestParam(value = "age", required = false) String age,
 			@RequestParam(value = "height", required = false) String height,
 			@RequestParam(value = "weight", required = false) String weight,
 			@RequestParam(value = "footType", required = false) String footType,
@@ -339,7 +344,11 @@ public class EvaluationController {
 			if(null != ev.getShoeSizeId()) ev.setShoeSizeName(SysConfig.shoeSizeMap.get(ev.getShoeSizeId().intValue()));
 			if(null != ev.getSockTypeId()) ev.setSockType(SysConfig.sockTypeMap.get(ev.getSockTypeId().intValue()));
 			if(null != ev.getFieldTypeId()) ev.setFieldType(SysConfig.fieldTypeMap.get(ev.getFieldTypeId().intValue()));
-			
+			if(null != birthdayed){
+
+				Date birthday = sdf.parse(birthdayed);
+				ev.setBirthday(birthday);
+			}
 			this.service.update(ev);
 			
 			return RestResult.restResult(result, null);
