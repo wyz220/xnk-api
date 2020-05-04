@@ -101,10 +101,11 @@ public class UserController {
 	@ApiOperation(value = "用户已卖测评查询", notes = "用户已卖测评查询", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "userId", value = "用户标识 userId", paramType = "query", required = false, dataType = "long")
+			,@ApiImplicitParam(name = "pageNo", value = "分页页数，默认0，分页大小默认20", paramType = "query", required = true, dataType = "integer")
 	       })
 	@RequestMapping(value = "getUserSellList")
 	public Map<String, Object> getUserSellList(HttpServletRequest request,
-			@RequestParam(value="userId",required=false) Long userId,
+			@RequestParam(value="userId",required=false) Long userId, @RequestParam(value="pageNo",required=false) Integer pageNo,
 			HttpServletResponse response
 			) throws Exception {
 		ResultInfo result = new ResultInfo();
@@ -112,12 +113,15 @@ public class UserController {
 		result.setMessage(ResultCode.SUCCESS.getMessage());
 		
 		try {
+			Evaluation evaluation = new Evaluation();
+			evaluation.setUserId(userId);
+			evaluation.getPage().setPageNo(pageNo);
+
+			Page<Evaluation> list = this.evaluationService.getUserSellList(evaluation);
 			
-			List<Evaluation> list = this.evaluationService.getUserSellList(userId);
-			
-            List<EvaluationNotBuyVo> listVo = new ArrayList<EvaluationNotBuyVo>();
-			
-			for(Evaluation  d : list){
+			Page<EvaluationNotBuyVo> dataNotBuy = new Page<EvaluationNotBuyVo>();
+			List<EvaluationNotBuyVo> listVo = dataNotBuy.getList();
+			for(Evaluation d : list.getList()){
 				EvaluationNotBuyVo dv = new EvaluationNotBuyVo();
 				dv.setId(d.getId());
 				dv.setUserId(d.getUserId());
@@ -133,7 +137,7 @@ public class UserController {
 				dv.setRemark(d.getRemark());
 				listVo.add(dv);
 			}
-			
+
 			return RestResult.restResult(result, listVo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,23 +153,27 @@ public class UserController {
 	@ApiOperation(value = "用户想买测评查询", notes = "用户想买测评查询", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "userId", value = "用户标识 userId", paramType = "query", required = false, dataType = "long")
-	       })
+			,@ApiImplicitParam(name = "pageNo", value = "分页页数，默认0，分页大小默认20", paramType = "query", required = true, dataType = "integer")
+	})
 	@RequestMapping(value = "getUserLikeList")
 	public Map<String, Object> getUserLikeList(HttpServletRequest request,
-			@RequestParam(value="userId",required=false) Long userId,
-			HttpServletResponse response
-			) throws Exception {
+											   @RequestParam(value="userId",required=false) Long userId, @RequestParam(value="pageNo",required=false) Integer pageNo,
+											   HttpServletResponse response
+	) throws Exception {
 		ResultInfo result = new ResultInfo();
 		result.setCode(ResultCode.SUCCESS.getCode());
 		result.setMessage(ResultCode.SUCCESS.getMessage());
-		
+
 		try {
-			
-			List<Evaluation> list = this.evaluationService.getUserLikeList(userId);
-			
-            List<EvaluationNotBuyVo> listVo = new ArrayList<EvaluationNotBuyVo>();
-			
-			for(Evaluation  d : list){
+			Evaluation evaluation = new Evaluation();
+			evaluation.setUserId(userId);
+			evaluation.getPage().setPageNo(pageNo);
+
+			Page<Evaluation> list = this.evaluationService.getUserLikeList(evaluation);
+
+			Page<EvaluationNotBuyVo> dataNotBuy = new Page<EvaluationNotBuyVo>();
+			List<EvaluationNotBuyVo> listVo = dataNotBuy.getList();
+			for(Evaluation d : list.getList()){
 				EvaluationNotBuyVo dv = new EvaluationNotBuyVo();
 				dv.setId(d.getId());
 				dv.setUserId(d.getUserId());
@@ -181,7 +189,7 @@ public class UserController {
 				dv.setRemark(d.getRemark());
 				listVo.add(dv);
 			}
-			
+
 			return RestResult.restResult(result, listVo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -189,9 +197,10 @@ public class UserController {
 			result.setMessage(ResultCode.FAILED.getMessage());
 			return RestResult.restResult(result, null);
 		}
-		
+
 	}
-	
+
+
 	@ApiOperation(value = "用户测评查询", notes = "用户测评查询", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "userId", value = "用户标识 userId", paramType = "query", required = false, dataType = "long")

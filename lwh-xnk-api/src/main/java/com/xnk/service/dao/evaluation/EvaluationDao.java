@@ -30,6 +30,14 @@ public interface EvaluationDao extends CrudDao<Evaluation>{
 	 * @return
 	 */
 	List<Evaluation> getUserLikeList(Long userId);
-	
-	
+
+
+    List<Evaluation> pageUserSell(Evaluation entity);
+
+	int countUserSell(Evaluation entity);
+
+	List<Evaluation> pageUserLike(Evaluation entity);
+
+	int countUserLike(Evaluation entity);
+
 }
