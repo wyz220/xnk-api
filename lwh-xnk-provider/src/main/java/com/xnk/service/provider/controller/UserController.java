@@ -1,21 +1,5 @@
 package com.xnk.service.provider.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.xnk.service.api.model.Evaluation;
 import com.xnk.service.api.model.FollowUser;
 import com.xnk.service.api.model.User;
@@ -28,11 +12,24 @@ import com.xnk.service.provider.service.EvaluationService;
 import com.xnk.service.provider.service.FollowUserService;
 import com.xnk.service.provider.service.UserService;
 import com.xnk.service.provider.utils.UrlEnDeCodeUtils;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Api(description="用户接口")
 @RestController
@@ -138,7 +135,10 @@ public class UserController {
 				listVo.add(dv);
 			}
 
-			return RestResult.restResult(result, listVo);
+			dataNotBuy.setCount(list.getCount());
+			dataNotBuy.setPageNo(list.getPageNo());
+			dataNotBuy.setList(listVo);
+			return RestResult.restResult(result, dataNotBuy);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.setCode(ResultCode.FAILED.getCode());
@@ -189,8 +189,10 @@ public class UserController {
 				dv.setRemark(d.getRemark());
 				listVo.add(dv);
 			}
-
-			return RestResult.restResult(result, listVo);
+			dataNotBuy.setCount(list.getCount());
+			dataNotBuy.setPageNo(list.getPageNo());
+			dataNotBuy.setList(listVo);
+			return RestResult.restResult(result, dataNotBuy);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.setCode(ResultCode.FAILED.getCode());
