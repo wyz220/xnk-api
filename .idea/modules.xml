@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/lwh-xnk-api/lwh-xnk-api.iml" filepath="$PROJECT_DIR$/lwh-xnk-api/lwh-xnk-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lwh-xnk-provider/lwh-xnk-provider.iml" filepath="$PROJECT_DIR$/lwh-xnk-provider/lwh-xnk-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/xnk-api.iml" filepath="$PROJECT_DIR$/.idea/xnk-api.iml" />
+    </modules>
+  </component>
+</project>

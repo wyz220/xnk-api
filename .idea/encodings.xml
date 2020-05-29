@@ -3,7 +3,11 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lwh-xnk-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lwh-xnk-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lwh-xnk-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lwh-xnk-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lwh-xnk-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lwh-xnk-provider/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

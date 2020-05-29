@@ -16,4 +16,10 @@
       <module name="xnk-api" target="1.8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="lwh-xnk-api" options="" />
+      <module name="lwh-xnk-provider" options="" />
+    </option>
+  </component>
 </project>

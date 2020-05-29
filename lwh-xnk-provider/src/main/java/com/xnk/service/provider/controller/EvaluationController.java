@@ -1,15 +1,19 @@
 package com.xnk.service.provider.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.google.common.collect.Maps;
+import com.xnk.service.api.model.*;
+import com.xnk.service.api.vo.EvaluationNotBuyVo;
+import com.xnk.service.entity.Page;
+import com.xnk.service.provider.common.RestResult;
+import com.xnk.service.provider.common.ResultInfo;
+import com.xnk.service.provider.common.ResultInfo.ResultCode;
+import com.xnk.service.provider.config.SysConfig;
+import com.xnk.service.provider.service.*;
+import com.xnk.service.provider.utils.UrlEnDeCodeUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,33 +24,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.collect.Maps;
-import com.xnk.service.api.model.Evaluation;
-import com.xnk.service.api.model.EvaluationCommentItem;
-import com.xnk.service.api.model.EvaluationWriteRecomTotal;
-import com.xnk.service.api.model.User;
-import com.xnk.service.api.model.UserDo;
-import com.xnk.service.api.model.UserEvaluationBuy;
-import com.xnk.service.api.vo.EvaluationNotBuyVo;
-import com.xnk.service.entity.Page;
-import com.xnk.service.provider.common.RestResult;
-import com.xnk.service.provider.common.ResultInfo;
-import com.xnk.service.provider.common.ResultInfo.ResultCode;
-import com.xnk.service.provider.config.SysConfig;
-import com.xnk.service.provider.service.EvaluationCommentItemService;
-import com.xnk.service.provider.service.EvaluationService;
-import com.xnk.service.provider.service.EvaluationWriteRecomTotalService;
-import com.xnk.service.provider.service.UserDoService;
-import com.xnk.service.provider.service.UserEvaluationBuyService;
-import com.xnk.service.provider.service.UserService;
-import com.xnk.service.provider.service.UserTotalService;
-import com.xnk.service.provider.utils.UrlEnDeCodeUtils;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import sun.java2d.pipe.SpanShapeRenderer;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Api(description="测评接口")
 @RestController
@@ -133,8 +114,50 @@ public class EvaluationController {
 		}
 		
 	}
-	
 
+	@ApiOperation(value = "测评查询", notes = "按业务规则查询测评", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "type", value = "查询类型 1推荐测评 2 想买测评  3关注", paramType = "query", required = false, dataType = "integer")
+			,@ApiImplicitParam(name = "userId", value = "用户标识userId", paramType = "query", required = true, dataType = "long")
+	})
+	@RequestMapping(value = "getUserEvaluationByBusiness")
+	public Map<String, Object> getUserEvaluationByBusiness(HttpServletRequest request,
+													   HttpServletResponse response,
+													   @RequestParam(value="type",required=false) Integer type,
+													   @RequestParam(value="userId",required=true) Long userId
+	) throws Exception {
+		ResultInfo result = new ResultInfo();
+		result.setCode(ResultCode.SUCCESS.getCode());
+		result.setMessage(ResultCode.SUCCESS.getMessage());
+
+		try {
+
+			UserDo userDo = new UserDo();
+			userDo.setStatus(1);
+			userDo.setType(type);
+			userDo.setUserId(userId);
+			List<UserDo> list = this.userDoService.list(userDo);
+
+			Long[] ids = new Long[list.size()];
+			int index = 0;
+			for(UserDo data : list){
+				ids[index++] = Long.valueOf(data.getEvaluationId());
+			}
+
+			if(ids.length <= 0){
+				return RestResult.restResult(result, new ArrayList<Evaluation>());
+			}
+			List<Evaluation> data = this.service.listByEvaIds(ids);
+
+			return RestResult.restResult(result, data);
+		} catch (Exception e) {
+			log.error("按业务规则查询测评异常",e);
+			result.setCode(ResultCode.FAILED.getCode());
+			result.setMessage(ResultCode.FAILED.getMessage());
+			return RestResult.restResult(result, null);
+		}
+
+	}
 	@ApiOperation(value = "测评更新", notes = "测评更新", produces = MediaType.APPLICATION_JSON_VALUE, httpMethod = "GET")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "evaluationId", value = "测评标识evaluationId", paramType = "query", required = true, dataType = "long")

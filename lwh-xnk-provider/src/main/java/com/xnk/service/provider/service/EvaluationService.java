@@ -38,5 +38,9 @@ public class EvaluationService extends CrudService<EvaluationDao, Evaluation>{
 	public List<Evaluation> getUserLikeList(Long userId){
 		return this.dao.getUserLikeList(userId);
 	}
-	
+
+
+    public List<Evaluation> listByEvaIds(Long[] evIds) {
+		return this.dao.listByEvaIds(evIds);
+    }
 }

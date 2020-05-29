@@ -30,7 +30,15 @@ public class UserTotal extends Entity<Long, UserTotal>{
 
     private Integer myFollowColorCount;//关注的配色
 
-    //新增
+	private Integer getEvaRecomCount= 0;//测评获得的推荐
+
+	private Integer getEvaGoodCount= 0;//测评获得的赞
+
+	private Integer getEvaItemGoodCount= 0;//测评项获得的赞
+
+	private Integer getEvaShareCount= 0;//测评被分享数
+
+	//新增
     private Date createTime;
 
     private Date updateTime;
@@ -41,6 +49,38 @@ public class UserTotal extends Entity<Long, UserTotal>{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Integer getGetEvaRecomCount() {
+		return getEvaRecomCount;
+	}
+
+	public void setGetEvaRecomCount(Integer getEvaRecomCount) {
+		this.getEvaRecomCount = getEvaRecomCount;
+	}
+
+	public Integer getGetEvaGoodCount() {
+		return getEvaGoodCount;
+	}
+
+	public void setGetEvaGoodCount(Integer getEvaGoodCount) {
+		this.getEvaGoodCount = getEvaGoodCount;
+	}
+
+	public Integer getGetEvaItemGoodCount() {
+		return getEvaItemGoodCount;
+	}
+
+	public void setGetEvaItemGoodCount(Integer getEvaItemGoodCount) {
+		this.getEvaItemGoodCount = getEvaItemGoodCount;
+	}
+
+	public Integer getGetEvaShareCount() {
+		return getEvaShareCount;
+	}
+
+	public void setGetEvaShareCount(Integer getEvaShareCount) {
+		this.getEvaShareCount = getEvaShareCount;
 	}
 
 	public Long getUserId() {

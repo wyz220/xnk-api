@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xnk.service.dao.sys.SysRegionDao">
+    <resultMap id="BaseResultMap" type="com.xnk.service.api.model.SysRegionPo">
+        <id column="code" jdbcType="VARCHAR" property="code" />
+        <result column="parent_code" jdbcType="VARCHAR" property="parentCode" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="full_name" jdbcType="VARCHAR" property="fullName" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="is_del" jdbcType="VARCHAR" property="isDel" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    code, parent_code, name, full_name, type, is_del, create_by, create_time, update_by,
+    update_time
+  </sql>
+    <select id="get"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_region
+        <where><include refid="allAndLike"/></where>
+    </select>
+    <select id="getAreaCode"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_region where type = 'A' and name = #{name,jdbcType=VARCHAR} and
+        (full_name like concat('',#{province,
+				jdbcType=VARCHAR},'%')
+        and
+        full_name LIKE concat('%',#{city,
+				jdbcType=VARCHAR},'%'))
+    </select>
+    <!-- 模糊查询 -->
+    <sql id="allAndLike">
+        <trim suffix="" suffixOverrides=",">
+            <if test="code != null">
+                and code = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="parentCode != null">
+                and parent_code = #{parentCode,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null">
+                and type = #{type,jdbcType=CHAR}
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 批量查询 -->
+    <select id="list" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from sys_region
+        <where><include refid="allAndLike"/>
+            <choose>
+                <when test="page !=null and page.condition != null and page.condition != ''">
+                    ${page.condition}
+                </when>
+            </choose>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                order by ${page.orderBy}
+            </when>
+        </choose>
+    </select>
+    <delete id="delete" parameterType="java.lang.String">
+    delete from sys_region
+    where code = #{code,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.xnk.service.api.model.SysRegionPo">
+    insert into sys_region (code, parent_code, name,
+      full_name, type, is_del,
+      create_by, create_time, update_by,
+      update_time)
+    values (#{code,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{fullName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <update id="update" parameterType="com.xnk.service.api.model.SysRegionPo">
+        update sys_region
+        <set>
+            <if test="parentCode != null">
+                parent_code = #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                full_name = #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where code = #{code,jdbcType=VARCHAR}
+    </update>
+</mapper>

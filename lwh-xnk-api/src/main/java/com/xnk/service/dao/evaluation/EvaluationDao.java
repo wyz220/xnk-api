@@ -1,11 +1,10 @@
 package com.xnk.service.dao.evaluation;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import com.xnk.service.api.model.Evaluation;
 import com.xnk.service.dao.CrudDao;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface EvaluationDao extends CrudDao<Evaluation>{
@@ -40,4 +39,5 @@ public interface EvaluationDao extends CrudDao<Evaluation>{
 
 	int countUserLike(Evaluation entity);
 
+    List<Evaluation> listByEvaIds(Long[] evIds);
 }
